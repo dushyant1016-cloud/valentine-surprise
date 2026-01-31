@@ -1,33 +1,118 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>7 Feb - Chocolate Day</title>
+  <title>Propose Day 💍</title>
   <style>
     body{
-      background: linear-gradient(135deg,#4b2c20,#7b3f00);
+      margin:0;
+      height:100vh;
+      background: linear-gradient(135deg,#ff0844,#ffb199);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-family:'Segoe UI', sans-serif;
+      overflow:hidden;
+    }
+
+    .card{
+      background:white;
+      padding:35px 30px;
+      border-radius:20px;
       text-align:center;
-      font-family:Segoe UI, sans-serif;
+      max-width:380px;
+      animation: pop 1s ease;
+      box-shadow:0 0 30px rgba(0,0,0,0.3);
+    }
+
+    @keyframes pop{
+      0%{transform:scale(0.5); opacity:0;}
+      100%{transform:scale(1); opacity:1;}
+    }
+
+    img{
+      width:150px;
+      height:150px;
+      border-radius:50%;
+      border:5px solid #ff0844;
+      object-fit:cover;
+      margin-bottom:12px;
+    }
+
+    h1{
+      color:#ff0844;
+      margin:5px 0;
+    }
+
+    p{
+      font-size:18px;
+      color:#444;
+      line-height:1.5;
+    }
+
+    .heart{
+      font-size:70px;
+      animation: beat 1s infinite;
+      margin:10px 0;
+    }
+
+    @keyframes beat{
+      0%{transform:scale(1);}
+      50%{transform:scale(1.3);}
+      100%{transform:scale(1);}
+    }
+
+    button{
+      padding:10px 22px;
+      border:none;
+      background:#ff0844;
       color:white;
-      padding:40px;
+      font-size:17px;
+      border-radius:50px;
+      cursor:pointer;
+      margin:10px 6px;
     }
-    h1{font-size:48px;}
-    p{font-size:22px;}
-    .choco{
-      font-size:90px;
-      animation: float 2s infinite alternate;
-    }
-    @keyframes float{
-      from{transform:translateY(0px);}
-      to{transform:translateY(-20px);}
+
+    button:hover{
+      background:#ff4b6e;
     }
   </style>
 </head>
 <body>
 
-  <div class="choco">🍫</div>
-  <h1>Happy Chocolate Day Ujala 🍫</h1>
-  <p>Tu meri life ka sabse sweet chocolate hai 💖</p>
-  <p>From: Dushyant 😘</p>
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_1f76a94c9f.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+  <img src="ujala.jpg" alt="My Special One">
+
+  <div class="heart">💖</div>
+
+  <h1>Ujala</h1>
+
+  <p>
+    Jab se tu meri life me aayi hai,<br>
+    sab kuch special lagne laga hai ✨<br><br>
+    Tu meri smile ki wajah hai,<br>
+    aur meri khushi ka reason ❤️<br><br>
+    <b>Will you be mine forever? 💍</b>
+  </p>
+
+  <button onclick="yes()">YES 😍</button>
+  <button onclick="no()">NO 🙈</button>
+</div>
+
+<script>
+  function yes(){
+    document.body.innerHTML = 
+    "<h1 style='color:white;font-size:50px;text-align:center;'>She said YES 😭❤️<br><br>Thank You Ujala 💖<br>- Dushyant</h1>";
+  }
+
+  function no(){
+    alert("Shayad galat button dab gaya 😅 Dobara try karo 💖");
+  }
+</script>
 
 </body>
 </html>
+
