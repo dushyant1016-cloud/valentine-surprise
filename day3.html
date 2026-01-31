@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chocolate Day 🍫</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #5a2d0c, #b5651d);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 20px;
+      width: 330px;
+      text-align: center;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      animation: pop 0.6s ease;
+      position: relative;
+    }
+
+    @keyframes pop {
+      0% {transform: scale(0.5); opacity: 0;}
+      100% {transform: scale(1); opacity: 1;}
+    }
+
+    img {
+      width: 170px;
+      border-radius: 15px;
+      margin: 12px 0;
+    }
+
+    h1 {
+      color: #8b4513;
+      margin: 8px 0;
+    }
+
+    p {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .choco {
+      font-size: 40px;
+      animation: bounce 1.2s infinite;
+    }
+
+    @keyframes bounce {
+      0%,100% {transform: translateY(0);}
+      50% {transform: translateY(-10px);}
+    }
+
+    .btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-size: 15px;
+      background: #8b4513;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      background: #5a2d0c;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h3>Happy Chocolate Day 🍫</h3>
+
+    <img src="kitkat.png" alt="KitKat Chocolate">
+
+    <div class="choco">🍫</div>
+
+    <h1>For My Sweet Ujala ❤️</h1>
+
+    <p>
+      Jaise KitKat bina chocolate ke adhura hai,<br>
+      waise hi main tere bina incomplete hoon 🥺❤️<br><br>
+
+      Teri ek smile meri saari thakaan mita deti hai,<br>
+      aur tera saath meri duniya ban jaata hai 🌍✨<br><br>
+
+      <b>Happy Chocolate Day Meri Sweetheart 🍫❤️</b>
+    </p>
+
+    <button class="btn" onclick="choco()">Send Chocolate 🍫</button>
+  </div>
+
+<script>
+  function choco() {
+    document.body.innerHTML = `
+      <div style="
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        background:linear-gradient(135deg,#5a2d0c,#b5651d);
+        color:white;
+        text-align:center;
+        font-family:poppins;
+        flex-direction:column;
+      ">
+        <h1>🍫 Chocolate Sent Successfully 😍</h1>
+        <h2>For My Sweetest Ujala ❤️</h2>
+        <h3>– Dushyant</h3>
+      </div>
+    `;
+  }
+</script>
+
+</body>
+</html>
