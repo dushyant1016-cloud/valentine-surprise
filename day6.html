@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hug Day 🤗</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 28px;
+      border-radius: 25px;
+      width: 350px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+      animation: pop 0.7s ease;
+    }
+
+    @keyframes pop {
+      0% {transform: scale(0.5); opacity: 0;}
+      100% {transform: scale(1); opacity: 1;}
+    }
+
+    h2 {
+      margin: 6px 0;
+      color: #ff4d6d;
+    }
+
+    img {
+      width: 180px;
+      border-radius: 18px;
+      margin: 12px 0;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,100% {transform: translateY(0);}
+      50% {transform: translateY(-10px);}
+    }
+
+    p {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.7;
+    }
+
+    .btn {
+      margin-top: 15px;
+      padding: 10px 26px;
+      border: none;
+      border-radius: 25px;
+      font-size: 15px;
+      background: #ff4d6d;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      background: #ff1f4b;
+    }
+
+    .emoji {
+      font-size: 36px;
+      animation: beat 1.2s infinite;
+    }
+
+    @keyframes beat {
+      0%,100% {transform: scale(1);}
+      50% {transform: scale(1.2);}
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h2>Happy Hug Day 🤗</h2>
+
+    <img src="hug.png" alt="Hug">
+
+    <div class="emoji">🤗</div>
+
+    <h2>For My Love Ujala ❤️</h2>
+
+    <p>
+      A hug is the simplest way to show how much I care for you,  
+      and how deeply I feel for you 💖<br><br>
+
+      Whenever you need comfort, strength, or peace,  
+      my arms will always be open for you 🤗<br><br>
+
+      <b>Happy Hug Day, my forever ❤️🤗</b>
+    </p>
+
+    <button class="btn" onclick="hug()">Send A Warm Hug 🤗</button>
+  </div>
+
+<script>
+  function hug() {
+    document.body.innerHTML = `
+      <div style="
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        background:linear-gradient(135deg,#ff758c,#ff7eb3);
+        color:white;
+        text-align:center;
+        font-family:poppins;
+        flex-direction:column;
+      ">
+        <h1>🤗 Hug Sent Successfully ❤️</h1>
+        <h2>For My Sweetest Ujala 💖</h2>
+        <h3>– Dushyant</h3>
+      </div>
+    `;
+  }
+</script>
+
+</body>
+</html>
