@@ -1,119 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Propose Day 💍</title>
+  <link rel="stylesheet" href="style.css">
   <style>
-    body{
-      margin:0;
-      height:100vh;
-      background: linear-gradient(135deg,#ff0844,#ffb199);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      font-family:'Segoe UI', sans-serif;
-      overflow:hidden;
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
-    .card{
-      background:white;
-      padding:35px 30px;
-      border-radius:20px;
-      text-align:center;
-      max-width:380px;
-      animation: pop 1s ease;
-      box-shadow:0 0 30px rgba(0,0,0,0.3);
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 20px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      animation: pop 0.6s ease;
     }
 
-    @keyframes pop{
-      0%{transform:scale(0.5); opacity:0;}
-      100%{transform:scale(1); opacity:1;}
+    @keyframes pop {
+      0% {transform: scale(0.5); opacity: 0;}
+      100% {transform: scale(1); opacity: 1;}
     }
 
-    img{
-      width:150px;
-      height:150px;
-      border-radius:50%;
-      border:5px solid #ff0844;
-      object-fit:cover;
-      margin-bottom:12px;
+    img {
+      width: 160px;
+      border-radius: 15px;
+      margin: 10px 0;
     }
 
-    h1{
-      color:#ff0844;
-      margin:5px 0;
+    h1 {
+      color: #ff004f;
+      margin: 10px 0;
     }
 
-    p{
-      font-size:18px;
-      color:#444;
-      line-height:1.5;
+    p {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.6;
     }
 
-    .heart{
-      font-size:70px;
+    .heart {
+      font-size: 45px;
       animation: beat 1s infinite;
-      margin:10px 0;
     }
 
-    @keyframes beat{
-      0%{transform:scale(1);}
-      50%{transform:scale(1.3);}
-      100%{transform:scale(1);}
+    @keyframes beat {
+      0%,100% {transform: scale(1);}
+      50% {transform: scale(1.2);}
     }
 
-    button{
-      padding:10px 22px;
-      border:none;
-      background:#ff0844;
-      color:white;
-      font-size:17px;
-      border-radius:50px;
-      cursor:pointer;
-      margin:10px 6px;
+    button {
+      padding: 10px 25px;
+      margin: 10px;
+      border: none;
+      border-radius: 25px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
     }
 
-    button:hover{
-      background:#ff4b6e;
+    .yes {
+      background: #ff004f;
+      color: white;
+    }
+
+    .no {
+      background: #555;
+      color: white;
+    }
+
+    button:hover {
+      transform: scale(1.1);
     }
   </style>
 </head>
 <body>
 
-<audio autoplay loop>
-  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_1f76a94c9f.mp3" type="audio/mpeg">
-</audio>
+  <div class="card">
+    <h3>My Special One 💖</h3>
 
-<div class="card">
-  <img src="ujala.png" alt="My Special One">
+    <img src="ujala.png" alt="My Special One">
 
+    <div class="heart">❤️</div>
 
-  <div class="heart">💖</div>
+    <h1>Ujala</h1>
 
-  <h1>Ujala</h1>
+    <p>
+      Jab se tu meri life me aayi hai,<br>
+      sab kuch special lagne laga hai ✨<br><br>
 
-  <p>
-    Jab se tu meri life me aayi hai,<br>
-    sab kuch special lagne laga hai ✨<br><br>
-    Tu meri smile ki wajah hai,<br>
-    aur meri khushi ka reason ❤️<br><br>
-    <b>Will you be mine forever? 💍</b>
-  </p>
+      Tu meri smile ki wajah hai,<br>
+      aur meri khushi ka reason ❤️<br><br>
 
-  <button onclick="yes()">YES 😍</button>
-  <button onclick="no()">NO 🙈</button>
-</div>
+      <b>Will you be mine forever?</b> 💍
+    </p>
+
+    <button class="yes" onclick="yes()">YES 😍</button>
+    <button class="no" onclick="no()">NO 🙈</button>
+  </div>
 
 <script>
-  function yes(){
-    document.body.innerHTML = 
-    "<h1 style='color:white;font-size:50px;text-align:center;'>She said YES 😭❤️<br><br>Thank You Ujala 💖<br>- Dushyant</h1>";
+  function yes() {
+    document.body.innerHTML = `
+      <div style="
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        background:linear-gradient(135deg,#ff416c,#ff4b2b);
+        color:white;
+        text-align:center;
+        font-family:poppins;
+        flex-direction:column;
+      ">
+        <h1>She said YES 😍❤️</h1>
+        <h2>Thank You Ujala 💖</h2>
+        <h3>– Dushyant</h3>
+      </div>
+    `;
   }
 
-  function no(){
-    alert("Shayad galat button dab gaya 😅 Dobara try karo 💖");
+  function no() {
+    alert("Shayad galat button dab gaya 😅 dobara try karo ❤️");
   }
 </script>
 
 </body>
 </html>
-
