@@ -125,6 +125,16 @@
     document.getElementById("bgm").play();
   });
 </script>
+<audio id="bgm">
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  document.addEventListener("click", function () {
+    const audio = document.getElementById("bgm");
+    audio.play();
+  }, { once: true });
+</script>
 
 </body>
 </html>
