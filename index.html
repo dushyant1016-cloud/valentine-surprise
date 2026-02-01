@@ -20,25 +20,6 @@
     <a href="day7.html">13 Feb 😊</a>
     <a href="day8.html">14 Feb ❤️</a>
   </div>
-</div>
-
-<script src="script.js"></script>
-<script>
-  const links = document.querySelectorAll(".days a");
-
-  const today = new Date();
-  const startDate = new Date(today.getFullYear(), 1, 7); // 7 Feb
-
-  links.forEach((link, index) => {
-    const dayDate = new Date(startDate);
-    dayDate.setDate(startDate.getDate() + index);
-
-    if (today < dayDate) {
-      link.style.pointerEvents = "none";
-      link.style.opacity = "0.5";
-      link.innerHTML += " 🔒";
-    }
-  });
 </script>
 
 </body>
