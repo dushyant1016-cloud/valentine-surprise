@@ -103,9 +103,26 @@
         I truly wish that we grow together, achieve our dreams, and keep choosing each other every single day.  
         You mean the world to me. 💛
 
-    <button class="yes" onclick="yes()">YES 😍</button>
-    <button class="no" onclick="no()">NO 🙈</button>
-  </div>
+   <!-- Buttons -->
+<div class="btns">
+  <button class="accept" onclick="accepted()">Accept 💖</button>
+  <button class="decline" onclick="declined()">Decline 😢</button>
+</div>
+
+<div id="msg"></div>
+
+<script>
+  function accepted() {
+    document.getElementById("msg").innerHTML =
+      "You have accepted the propose from Dushyant 💖🥰";
+  }
+
+  function declined() {
+    document.getElementById("msg").innerHTML =
+      "ujala may be you clicked on wrong option this is not for you";
+  }
+</script>
+
 
 <script>
   function yes() {
