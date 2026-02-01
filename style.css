@@ -7,6 +7,22 @@ body{
   align-items: center;
   min-height: 100vh;
 }
+.days a{
+  display: block;
+  margin: 8px 0;
+  padding: 12px;
+  background: #ff4d6d;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.days a:hover{
+  background: #ff2f5b;
+  transform: scale(1.03);
+}
 
 .card{
   background: white;
