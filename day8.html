@@ -127,6 +127,65 @@
   }, { once: true });
 </script>
 
+<div id="cinema">
+  <div id="type"></div>
+</div>
+
+<style>
+#cinema{
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, #000, #020024);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: 1.5s;
+}
+
+#cinema.show{
+  opacity: 1;
+  pointer-events: all;
+}
+
+#type{
+  color: #ff4d6d;
+  font-size: 40px;
+  text-align: center;
+  font-weight: bold;
+  max-width: 90%;
+  line-height: 1.6;
+  text-shadow: 0 0 15px rgba(255,77,109,0.8);
+}
+</style>
+
+<script>
+const msg = `From the moment you came into my life ❤️
+Everything changed...
+
+You made me smile when I was broken,
+You made me strong when I was weak,
+
+Every heartbeat of mine says only one thing...
+
+I LOVE YOU MORE THAN ANYTHING 💖
+
+Happy Valentine's Day My Everything 💝`;
+
+let i = 0;
+setTimeout(() => {
+  document.getElementById("cinema").classList.add("show");
+
+  const typing = setInterval(() => {
+    document.getElementById("type").innerHTML += msg.charAt(i);
+    i++;
+    if(i >= msg.length) clearInterval(typing);
+  }, 45);
+
+}, 12000); // 12 sec baad start
+</script>
 
 </body>
 </html>
