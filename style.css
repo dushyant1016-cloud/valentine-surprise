@@ -1,9 +1,15 @@
-  body{
+body{
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: url('ujala.png') no-repeat center center fixed;
+  min-height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+              url('ujala.png') center top no-repeat fixed;
   background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 
   font-family: Arial, sans-serif;
   display:flex;
