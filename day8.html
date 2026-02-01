@@ -116,6 +116,15 @@
     setInterval(() => createRain("❤️", "heart", 10), 500);
     setInterval(() => createRain("🌸", "flower", 6), 700);
   </script>
+<audio id="bgm" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  document.body.addEventListener("click", function(){
+    document.getElementById("bgm").play();
+  });
+</script>
 
 </body>
 </html>
