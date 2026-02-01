@@ -1,135 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Day 8 - Love Rain 💖</title>
+  <meta charset="UTF-8">
+  <title>Happy Valentine Day ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      color: white;
+      text-align: center;
+    }
 
-<style>
-body{
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#ff758c,#ff7eb3);
-  overflow:hidden;
-}
+    .container {
+      z-index: 2;
+      max-width: 900px;
+      padding: 20px;
+    }
 
-.container{
-  position:relative;
-  z-index:5;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
+    h1 {
+      font-size: 60px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
 
-.card{
-  background:white;
-  padding:26px;
-  border-radius:25px;
-  width:390px;
-  text-align:center;
-  box-shadow:0 15px 40px rgba(0,0,0,.35);
-  animation:pop .8s ease;
-}
+    p {
+      font-size: 22px;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
 
-@keyframes pop{
-  from{transform:scale(.5);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
+    .slideshow {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
 
-h1{
-  color:#ff4d6d;
-  margin:6px 0;
-}
+    .slideshow img {
+      width: 160px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.5);
+      animation: zoom 4s infinite alternate;
+    }
 
-.slider img{
-  width:220px;
-  border-radius:18px;
-  margin:12px 0;
-  animation:float 3s ease-in-out infinite;
-}
+    @keyframes zoom {
+      from { transform: scale(1); }
+      to { transform: scale(1.08); }
+    }
 
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-12px)}
-}
+    .heart, .flower {
+      position: fixed;
+      top: -20px;
+      font-size: 24px;
+      animation: fall linear infinite;
+      opacity: 0.8;
+    }
 
-p{
-  font-size:14px;
-  color:#444;
-  line-height:1.8;
-}
+    .heart { color: #ffccd5; }
+    .flower { color: #fff3b0; }
 
-/* Hearts + Flowers Rain */
-.rain span{
-  position:fixed;
-  top:-10px;
-  font-size:20px;
-  animation:fall linear infinite;
-}
-
-@keyframes fall{
-  to{transform:translateY(110vh);}
-}
-</style>
+    @keyframes fall {
+      0% { transform: translateY(-20px); }
+      100% { transform: translateY(110vh); }
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="rain"></div>
-
-<div class="container">
-  <div class="card">
-
-    <h1>For My Love Ujala 💖</h1>
-
-    <div class="slider">
-      <img id="pic" src="ujala.png">
-    </div>
+  <div class="container">
+    <h1>HAPPY VALENTINE DAY MY EVERYTHING ❤️</h1>
 
     <p>
-      From the day you entered my life, everything started to feel brighter and more meaningful.
-      Your smile gives me peace, your voice gives me comfort, and your presence fills my heart with happiness.
-      Even with all this distance, you are always close to my soul.
-      You are my strength on weak days, my hope in hard times, and my reason to believe in love.
-      I promise to stand by you, respect you, support your dreams, and love you endlessly.
-      No matter where life takes us, my heart will always choose you.
-      You are my today, my tomorrow, and my forever. ❤️
+      You are not just my love, you are my happiness, my peace, my smile, and my whole world.  
+      Every heartbeat of mine whispers your name, and every moment I spend without you makes me miss you even more.  
+      Thank you for coming into my life and making it so beautiful.  
+      No matter how far we are, my heart will always belong to you.  
+      Today and forever, I choose you — only you. ❤️
     </p>
 
+    <div class="slideshow">
+      <img src="ujala.png">
+      <img src="ujala1.png">
+      <img src="ujala2.png">
+      <img src="ujala3.png">
+      <img src="ujala4.png">
+    </div>
   </div>
-</div>
 
-<script>
-/* Image Slider */
-let images=[
-  "ujala.png",
-  "ujala1.png",
-  "ujala2.png",
-  "ujala3.png",
-  "ujala4.png",
-  "ujala5.png"
-];
+  <script>
+    function createRain(symbol, className, count) {
+      for (let i = 0; i < count; i++) {
+        let drop = document.createElement("div");
+        drop.className = className;
+        drop.innerHTML = symbol;
+        drop.style.left = Math.random() * 100 + "vw";
+        drop.style.animationDuration = (3 + Math.random() * 5) + "s";
+        drop.style.fontSize = (18 + Math.random() * 22) + "px";
+        document.body.appendChild(drop);
 
-let i=0;
-setInterval(()=>{
-  i=(i+1)%images.length;
-  document.getElementById("pic").src=images[i];
-},2500);
+        setTimeout(() => {
+          drop.remove();
+        }, 8000);
+      }
+    }
 
-/* Hearts + Flowers Rain */
-const rain=document.querySelector('.rain');
-const icons=["❤️","💖","💗","🌹","🌸","🌺","🌷"];
-
-setInterval(()=>{
-  let span=document.createElement("span");
-  span.innerHTML=icons[Math.floor(Math.random()*icons.length)];
-  span.style.left=Math.random()*100+"vw";
-  span.style.animationDuration=(2+Math.random()*3)+"s";
-  rain.appendChild(span);
-
-  setTimeout(()=>{span.remove();},5000);
-},120);
-</script>
+    setInterval(() => createRain("❤️", "heart", 10), 500);
+    setInterval(() => createRain("🌸", "flower", 6), 700);
+  </script>
 
 </body>
 </html>
+
