@@ -115,18 +115,28 @@
 
     setInterval(() => createRain("❤️", "heart", 10), 500);
     setInterval(() => createRain("🌸", "flower", 6), 700);
- <audio id="bgm" loop>
-  <source src="song.mp3" type="audio/mpeg">
+<audio id="bgm">
+  <source src="music/song.mp3" type="audio/mpeg">
 </audio>
 
 <button onclick="playMusic()" class="music-btn">
-  ▶ Play Music 🎵
+<button id="musicBtn" class="music-btn">
+  ▶ Play Music
 </button>
 
 <script>
-function playMusic() {
-  document.getElementById("bgm").play();
-}
+const btn = document.getElementById("musicBtn");
+const song = document.getElementById("bgm");
+
+btn.addEventListener("click", () => {
+  if (song.paused) {
+    song.play();
+    btn.innerText = "⏸ Pause Music";
+  } else {
+    song.pause();
+    btn.innerText = "▶ Play Music";
+  }
+});
 </script>
 
 
@@ -228,6 +238,20 @@ setTimeout(() => {
 
 </script>
 
+<script>
+const btn = document.getElementById("musicBtn");
+const song = document.getElementById("bgm");
+
+btn.addEventListener("click", () => {
+  if (song.paused) {
+    song.play();
+    btn.innerText = "⏸ Pause Music";
+  } else {
+    song.pause();
+    btn.innerText = "▶ Play Music";
+  }
+});
+</script>
 
 </body>
 </html>
