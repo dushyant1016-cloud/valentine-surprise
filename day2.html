@@ -2,163 +2,149 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Propose Day 💍</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Propose Day 💖</title>
+
   <style>
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", sans-serif;
       background: linear-gradient(135deg, #ff416c, #ff4b2b);
       display: flex;
-      min-height: 100vh;
       justify-content: center;
       align-items: center;
-     
+      height: 100vh;
     }
 
     .card {
-      background: #fff;
-      padding: 25px;
+      background: white;
+      padding: 30px 25px;
       border-radius: 20px;
-      width: 320px;
+      width: 340px;
       text-align: center;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
       animation: pop 0.6s ease;
     }
 
     @keyframes pop {
-      0% {transform: scale(0.5); opacity: 0;}
-      100% {transform: scale(1); opacity: 1;}
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
     img {
-      width: 160px;
+      width: 130px;
       border-radius: 15px;
-      margin: 10px 0;
+      margin-bottom: 10px;
     }
 
-    h1 {
-  display: block;
-  color: #ff3366;
-}
+    .heart {
+      font-size: 32px;
+      animation: beat 1s infinite;
+      margin: 5px 0;
+    }
 
-      color: #ff004f;
-      margin: 10px 0;
+    @keyframes beat {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+
+    h2 {
+      margin: 8px 0;
+      color: #ff2d55;
     }
 
     p {
-      font-size: 15px;
-      color: #444;
+      font-size: 14px;
       line-height: 1.6;
+      color: #444;
+      margin: 10px 0 15px;
     }
 
-   
-
-    @keyframes beat {
-      0%,100% {transform: scale(1);}
-      50% {transform: scale(1.2);}
+    .btns {
+      margin-top: 15px;
     }
 
     button {
-   
-      padding: 10px 25px;
-      margin: 10px;
+      padding: 10px 22px;
       border: none;
       border-radius: 25px;
-      font-size: 15px;
+      font-size: 14px;
       cursor: pointer;
+      margin: 5px;
       transition: 0.3s;
     }
 
     .yes {
-      background: #ff004f;
+      background: #ff2d55;
       color: white;
     }
 
     .no {
-      background: #555;
-      color: white;
+      background: #ddd;
+      color: #333;
     }
 
-    button:hover {
+    .yes:hover {
       transform: scale(1.1);
+      background: #ff1744;
+    }
+
+    .no:hover {
+      transform: scale(1.1);
+      background: #bbb;
+    }
+
+    #msg {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #ff2d55;
+      display: none;
+      animation: pop 0.5s ease;
     }
   </style>
 </head>
+
 <body>
 
   <div class="card">
-    <h3>My Special One 💖</h3>
 
+    <!-- Your Image -->
     <img src="ujala.png" alt="My Special One">
 
     <div class="heart">❤️</div>
-   <h1 Propose Day</h1>
-      <h1 I LOVE YOU UJALA💖</h1>
+
+    <h2>Happy Propose Day 💍</h2>
+
     <p>
-        Ujala, on this Propose Day, I just want to tell you that you are the most beautiful part of my life.  
-        Your smile, your care, and your presence make every day special for me.  
-        I promise to always respect you, support you, and stand by you in every situation.  
-        I truly wish that we grow together, achieve our dreams, and keep choosing each other every single day.  
-        You mean the world to me. 💛
+      Ujala, on this Propose Day, I just want to tell you that you are the most
+      beautiful part of my life. Your smile, your care, and your presence make
+      every day special for me. I promise to always respect you, support you,
+      and stand by you in every situation. I truly wish that we grow together,
+      achieve our dreams, and keep choosing each other every single day.
+      You mean the world to me. 💛
+    </p>
 
-   <!-- Buttons -->
-<div class="btns">
-  <button class="accept" onclick="accepted()">Accept 💖</button>
-  <button class="decline" onclick="declined()">Decline 😢</button>
-  <div id="msg" style="display:none; margin-top:15px; font-weight:bold; color:#ff3366;"></div>
+    <div class="btns">
+      <button class="yes" onclick="accept()">Yes 💖</button>
+      <button class="no" onclick="decline()">No 🙈</button>
+    </div>
 
-</div>
+    <div id="msg"></div>
 
-<script>
-  function accepted() {
-    document.getElementById("msg").innerHTML =
-      "You have accepted the propose from Dushyant 💖🥰";
-  }
+  </div>
 
-  function declined() {
-    document.getElementById("msg").innerHTML =
-      "ujala may be you clicked on wrong option this is not for you";
-  }
-</script>
+  <script>
+    function accept() {
+      document.getElementById("msg").style.display = "block";
+      document.getElementById("msg").innerHTML =
+        "proposal accepted. Love you ujala 🥰";
+    }
 
-
-<script>
-  function yes() {
-    document.body.innerHTML = `
-      <div style="
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        height:100vh;
-        background:linear-gradient(135deg,#ff416c,#ff4b2b);
-        color:white;
-        text-align:center;
-        font-family:poppins;
-        flex-direction:column;
-      ">
-        <h1>She said YES 😍❤️</h1>
-        <h2>Thank You Ujala 💖</h2>
-        <h3>– Dushyant</h3>
-      </div>
-    `;
-  }
-
-  function no() {
-    alert("Shayad galat button dab gaya 😅 dobara try karo ❤️");
-  }
-</script>
-<script>
-function accepted(){
-  document.getElementById("msg").style.display = "block";
-  document.getElementById("msg").innerHTML = "Rose accepted ❤️ Love you!";
-}
-
-function declined(){
-  document.getElementById("msg").style.display = "block";
-  document.getElementById("msg").innerHTML = "Ujala You don't have to click on this button(kyu click kiya ?) ";
-}
-</script>
+    function decline() {
+      document.getElementById("msg").style.display = "block";
+      document.getElementById("msg").innerHTML =
+        "ujala jyda hii glt option pe click nhi krr diya tune!!!";
+    }
+  </script>
 
 </body>
 </html>
