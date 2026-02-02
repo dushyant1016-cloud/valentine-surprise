@@ -180,11 +180,26 @@ function playMusic() {
 }
 </style>
 <script>
-function playMusic() {
-  const audio = document.getElementById("bgm");
-  audio.play();
+const btn = document.getElementById("playBtn");
+const audio = document.getElementById("bgm");
+
+btn.addEventListener("touchstart", playSong);
+btn.addEventListener("click", playSong);
+
+function playSong() {
+  audio.play().then(() => {
+    btn.innerHTML = "🎶 Playing...";
+    btn.style.display = "none";
+  }).catch((e) => {
+    alert("Tap once anywhere on screen to start music 🎵");
+  });
 }
+
+document.body.addEventListener("touchstart", () => {
+  audio.play();
+}, { once: true });
 </script>
+
 
 <script>
 const msg = `From the moment you came into my life ❤️
@@ -212,7 +227,7 @@ setTimeout(() => {
 }, 20000); // 20 sec baad start
 
 </script>
-<button class="music-btn" onclick="playMusic()">🎵 Play Music</button>
+
 
 </body>
 </html>
