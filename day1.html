@@ -61,22 +61,28 @@
         May this rose bring a beautiful smile to your face and make your day more special and memorable than ever. Once again happy rose day ujala.
     </p>
 <div class="btn-wrapper">
-  <button class="accept" onclick="accepted()">Accept 💖</button>
-  <button class="decline" onclick="declined()">Decline 😢</button>
-
-  <div id="msg"></div>
+  <button onclick="acceptRose()">Accept 🌹</button>
+  <button onclick="declineRose()">Decline 😅</button>
 </div>
 
-    <div id="msg" class="hidden">
-      Rose accepted 💕 Love you!
-    </div>
-  </div>
+<p id="msg" style="display:none; color:#ff3366; font-weight:bold; margin-top:10px;">
+  Rose accepted ❤️ Love you!
+</p>
 
   <script>
     function acceptRose() {
       document.getElementById("msg").style.display = "block";
     }
   </script>
+<script>
+  function acceptRose() {
+    document.getElementById("msg").style.display = "block";
+  }
+
+  function declineRose() {
+    alert("You don't have a choice to click this button 😜❤️");
+  }
+</script>
 
 </body>
 </html>
