@@ -115,28 +115,20 @@
 
     setInterval(() => createRain("❤️", "heart", 10), 500);
     setInterval(() => createRain("🌸", "flower", 6), 700);
-  </script>
-<audio id="bgm" autoplay loop>
+ <audio id="bgm" loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
 
-<script>
-window.addEventListener("load", () => {
-  const audio = document.getElementById("bgm");
-  audio.play().catch(() => {
-    document.body.addEventListener("click", () => {
-      audio.play();
-    }, { once: true });
-  });
-});
-</script>
+<button onclick="playMusic()" class="music-btn">
+  ▶ Play Music 🎵
+</button>
 
 <script>
-  document.addEventListener("click", function () {
-    const audio = document.getElementById("bgm");
-    audio.play();
-  }, { once: true });
+function playMusic() {
+  document.getElementById("bgm").play();
+}
 </script>
+
 
 <div id="cinema">
   <div id="type"></div>
@@ -159,6 +151,20 @@ window.addEventListener("load", () => {
 #cinema.show{
   opacity: 1;
   pointer-events: all;
+}
+.music-btn{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 16px;
+  border-radius: 30px;
+  border: none;
+  background: #ff2d55;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 999999;
 }
 
 #type{
