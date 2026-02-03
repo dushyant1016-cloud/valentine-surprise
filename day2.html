@@ -146,6 +146,62 @@
         "ujala jyda hii glt option pe click nhi krr diya tune!!! YES pee click krr😡";
     }
   </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #111;
+            color: white;
+            text-align: center;
+        }
+        .locked {
+            color: red;
+        }
+        .content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="lockedMessage" class="locked">
+        🔒 Website locked hai<br>
+        <small>8 Feb raat 12:00 AM ka wait karo</small>
+    </div>
+
+    <div id="content" class="content">
+        <h1>🎉 Welcome to Day 2 🎉</h1>
+        <p>Website ab permanently unlock ho chuki hai 😎</p>
+    </div>
+
+    <script>
+        // 🔥 Unlock time: 8 Feb 12:00 AM (local time)
+        const unlockTime = new Date("2026-02-08T00:00:00").getTime();
+
+        const now = new Date().getTime();
+
+        // Check if already unlocked
+        const alreadyUnlocked = localStorage.getItem("day2Unlocked");
+
+        if (alreadyUnlocked === "true" || now >= unlockTime) {
+            // Unlock permanently
+            localStorage.setItem("day2Unlocked", "true");
+
+            document.getElementById("lockedMessage").style.display = "none";
+            document.getElementById("content").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
 
 </body>
 </html>
