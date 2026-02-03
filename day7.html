@@ -71,10 +71,44 @@
       background: #e63b5d;
     }
 
+    /* LOCK SCREEN STYLES */
+    #locked {
+      text-align:center;
+      padding-top:80px;
+      background:#ff9ac2;
+      height:100vh;
+      width:100%;
+      position:fixed;
+      top:0;
+      left:0;
+      color:white;
+      font-family:Arial;
+      z-index: 9999;
+    }
+
+    #unlock-time {
+      margin-top: 10px;
+    }
+
+    /* Hide main content initially */
+    #mainContent {
+      display: none;
+    }
+
   </style>
 </head>
 
 <body>
+
+<!-- 🔒 LOCK SCREEN -->
+<div id="locked">
+    <h1>🔒 Page Locked</h1>
+    <p>Yeh page open hoga:</p>
+    <h2 id="unlock-time"></h2>
+</div>
+
+<!-- ❤️ MAIN CONTENT -->
+<div id="mainContent">
 
   <div class="card">
     <h2>Happy Kiss Day 💋</h2>
@@ -99,8 +133,11 @@
     <button class="btn" onclick="kiss()">Send Virtual Kiss 😘</button>
   </div>
 
+</div>
+
+<!-- 🔑 JS LOCK SYSTEM + Button -->
 <script>
-  function kiss() {
+function kiss() {
     document.body.innerHTML = `
       <div style="
         display:flex;
@@ -118,7 +155,29 @@
         <h3>– From Ujala To Dushyant</h3>
       </div>
     `;
-  }
+}
+
+// Unlock date → 13 Feb 2026, 12:00 AM
+const unlockDate = new Date(2026, 1, 13, 0, 0, 0);
+
+// Show unlock time
+document.getElementById("unlock-time").innerText =
+  unlockDate.toLocaleString("en-IN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+  });
+
+// Check current time
+const now = new Date();
+
+if (now >= unlockDate) {
+    document.getElementById("locked").style.display = "none";
+    document.getElementById("mainContent").style.display = "flex";
+}
 </script>
 
 </body>
