@@ -9,6 +9,9 @@
       margin: 0;
       font-family: "Poppins", sans-serif;
       background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    }
+
+    .center {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -59,10 +62,6 @@
       margin: 10px 0 15px;
     }
 
-    .btns {
-      margin-top: 15px;
-    }
-
     button {
       padding: 10px 22px;
       border: none;
@@ -83,15 +82,8 @@
       color: #333;
     }
 
-    .yes:hover {
-      transform: scale(1.1);
-      background: #ff1744;
-    }
-
-    .no:hover {
-      transform: scale(1.1);
-      background: #bbb;
-    }
+    .yes:hover { transform: scale(1.1); background: #ff1744; }
+    .no:hover { transform: scale(1.1); background: #bbb; }
 
     #msg {
       margin-top: 15px;
@@ -105,74 +97,7 @@
 
 <body>
 
-  <div class="card">
-
-    <!-- Your Image -->
-    <img src="ujala.png" alt="My Special One">
-
-    <div class="heart">❤️</div>
-
-    <h2>I Love you UJALA 💍</h2>
-
-   <p>
-  On this special Propose Day, I want to confess something straight from my heart. 
-  Since the day you entered my life, everything feels brighter, warmer, and more meaningful. 
-  Your smile gives me peace, your voice calms my soul, and your presence completes me. 
-  I may not have perfect words, but my feelings are real and endless. 
-  I promise to stand by you, support you, and choose you every single day. 
-  Will you be mine forever? 💕🌹
-</p>
-
-
-<div class="btns">
-    <button class="yes" onclick="acceptRose()">YES 💖</button>
-    <button class="no" onclick="declineRose()">NO 🚫</button>
-</div>
-
-<div id="msg"></div>
-
-<script>
-function acceptRose() {
-    document.getElementById("msg").style.display = "block";
-    document.getElementById("msg").innerHTML =
-    "💗 You were already mine and now you also accept this. Love you Ujala 🥰";
-}
-
-function declineRose() {
-    document.getElementById("msg").style.display = "block";
-    document.getElementById("msg").innerHTML =
-    "😡 Ujala jyda hi galt option pe click nhi kar diya tune!!! YES pe click karr 😤";
-}
-</script>
-<script>
-// Page unlock date → 8 Feb 2026, 12:00 AM
-const unlockDate = new Date(2026, 1, 8, 0, 0, 0);
-
-// Time show karna
-document.getElementById("unlock-time").innerText =
-    unlockDate.toLocaleString("en-IN", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true
-    });
-
-const now = new Date();
-
-if (now >= unlockDate) {
-    document.getElementById("locked").style.display = "none";
-    document.getElementById("mainContent").style.display = "block";
-}
-</script>
-
-</div> <!-- mainContent end -->
-</body>
-</body>
-<body>
-
-<!-- LOCK SCREEN -->
+<!-- 🔒 LOCK SCREEN -->
 <div id="locked" style="
     text-align:center;
     padding-top:80px;
@@ -191,7 +116,67 @@ if (now >= unlockDate) {
     <h2 id="unlock-time" style="margin-top:10px;"></h2>
 </div>
 
-<!-- MAIN CONTENT -->
-<div id="mainContent" style="display:none;">
+<!-- ❤️ MAIN CONTENT -->
+<div id="mainContent" class="center" style="display:none;">
 
+  <div class="card">
+
+    <img src="ujala.png" alt="My Special One">
+
+    <div class="heart">❤️</div>
+
+    <h2>I Love you UJALA 💍</h2>
+
+    <p>
+      On this special Propose Day, I want to confess something straight from my heart.
+      Since the day you entered my life, everything feels brighter and more meaningful.
+      Your smile gives me peace, your presence completes me.
+      Will you be mine forever? 💕🌹
+    </p>
+
+    <button class="yes" onclick="acceptRose()">YES 💖</button>
+    <button class="no" onclick="declineRose()">NO 🚫</button>
+
+    <div id="msg"></div>
+
+  </div>
+
+</div>
+
+<!-- JS -->
+<script>
+function acceptRose() {
+    document.getElementById("msg").style.display = "block";
+    document.getElementById("msg").innerHTML =
+    "💗 You were already mine and now you also accept this. Love you Ujala 🥰";
+}
+
+function declineRose() {
+    document.getElementById("msg").style.display = "block";
+    document.getElementById("msg").innerHTML =
+    "😡 Ujala jyda hi galt option pe click nhi kar diya tune!!! YES pe click kar 😤";
+}
+
+// Unlock date → 8 Feb 2026, 12 AM
+const unlockDate = new Date(2026, 1, 8, 0, 0, 0);
+
+document.getElementById("unlock-time").innerText =
+  unlockDate.toLocaleString("en-IN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+  });
+
+const now = new Date();
+
+if (now >= unlockDate) {
+    document.getElementById("locked").style.display = "none";
+    document.getElementById("mainContent").style.display = "flex";
+}
+</script>
+
+</body>
 </html>
