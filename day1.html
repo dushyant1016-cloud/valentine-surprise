@@ -83,6 +83,45 @@
     alert("You don't have a choice to click this button 😜❤️");
   }
 </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 1</title>
+</head>
+<body>
+
+<!-- 🔒 LOCK SCRIPT (BODY KE START ME) -->
+<script>
+  // 📅 7 February, 12:00 AM (current year)
+  const unlockDate = new Date(
+    new Date().getFullYear(), // year
+    1, // February (0 = Jan)
+    7, // date
+    0, 0, 0 // 12:00 AM
+  );
+
+  const now = new Date();
+
+  if (now < unlockDate) {
+    document.body.innerHTML = `
+      <div style="text-align:center; margin-top:20%; font-family:Arial;">
+        <h1>🔒 Page Locked</h1>
+        <p>
+          Yeh page open hoga:<br>
+          <b>7 February, 12:00 AM</b>
+        </p>
+      </div>
+    `;
+  }
+</script>
+
+<!-- ✅ REAL CONTENT (sirf unlock ke baad dikhega) -->
+<h1>🎉 Welcome to Day 1</h1>
+<p>Yeh Day 1 ka content hai.</p>
+
+</body>
+</html>
 
 </body>
 </html>
