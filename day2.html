@@ -124,25 +124,27 @@
 </p>
 
 
-    <div class="btns">
-      <button class="yes" onclick="accept()">YES 💖</button>
-      <button class="no" onclick="decline()">NO 🙈</button>
-    </div>
+<div class="btns">
+    <button class="yes" onclick="acceptRose()">YES 💖</button>
+    <button class="no" onclick="declineRose()">NO 🚫</button>
+</div>
 
+<div id="msg"></div>
 
+<script>
+function acceptRose() {
+    document.getElementById("msg").style.display = "block";
+    document.getElementById("msg").innerHTML =
+    "💗 You were already mine and now you also accept this. Love you Ujala 🥰";
+}
 
-  
-
-
-        "you were already mine and from now u also accept this. Love you ujala 🥰";
-    }
-
-    function decline() {
-      document.getElementById("msg").style.display = "block";
-      document.getElementById("msg").innerHTML =
-        "ujala jyda hii glt option pe click nhi krr diya tune!!! YES pee click krr😡";
-    
+function declineRose() {
+    document.getElementById("msg").style.display = "block";
+    document.getElementById("msg").innerHTML =
+    "😡 Ujala jyda hi galt option pe click nhi kar diya tune!!! YES pe click karr 😤";
+}
 </script>
+
   
 </body>
 </html>
