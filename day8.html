@@ -115,28 +115,9 @@
 
     setInterval(() => createRain("❤️", "heart", 10), 500);
     setInterval(() => createRain("🌸", "flower", 6), 700);
-<audio id="bgm">
-  <source src="music/song.mp3" type="audio/mpeg">
-</audio>
 
-<button onclick="playMusic()" class="music-btn">
-<button id="musicBtn" class="music-btn">
-  ▶ Play Music
-</button>
 
-<script>
-const btn = document.getElementById("musicBtn");
-const song = document.getElementById("bgm");
 
-btn.addEventListener("click", () => {
-  if (song.paused) {
-    song.play();
-    btn.innerText = "⏸ Pause Music";
-  } else {
-    song.pause();
-    btn.innerText = "▶ Play Music";
-  }
-});
 </script>
 
 
@@ -189,25 +170,8 @@ btn.addEventListener("click", () => {
   text-shadow: 0 0 15px rgba(255,77,109,0.8);
 }
 </style>
-<script>
-const btn = document.getElementById("playBtn");
-const audio = document.getElementById("bgm");
 
-btn.addEventListener("touchstart", playSong);
-btn.addEventListener("click", playSong);
 
-function playSong() {
-  audio.play().then(() => {
-    btn.innerHTML = "🎶 Playing...";
-    btn.style.display = "none";
-  }).catch((e) => {
-    alert("Tap once anywhere on screen to start music 🎵");
-  });
-}
-
-document.body.addEventListener("touchstart", () => {
-  audio.play();
-}, { once: true });
 </script>
 
 
@@ -238,20 +202,6 @@ setTimeout(() => {
 
 </script>
 
-<script>
-const btn = document.getElementById("musicBtn");
-const song = document.getElementById("bgm");
-
-btn.addEventListener("click", () => {
-  if (song.paused) {
-    song.play();
-    btn.innerText = "⏸ Pause Music";
-  } else {
-    song.pause();
-    btn.innerText = "▶ Play Music";
-  }
-});
-</script>
 
 </body>
 </html>
