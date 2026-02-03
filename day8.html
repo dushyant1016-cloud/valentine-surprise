@@ -17,6 +17,31 @@
       text-align: center;
     }
 
+    /* LOCK SCREEN STYLES */
+    #locked {
+      text-align:center;
+      padding-top:80px;
+      background:#ff9ac2;
+      height:100vh;
+      width:100%;
+      position:fixed;
+      top:0;
+      left:0;
+      color:white;
+      font-family:Arial;
+      z-index: 9999;
+    }
+
+    #unlock-time {
+      margin-top: 10px;
+    }
+
+    /* MAIN CONTENT HIDDEN INITIALLY */
+    #mainContent {
+      display: none;
+    }
+
+    /* ORIGINAL STYLES START */
     .container {
       z-index: 2;
       max-width: 900px;
@@ -76,6 +101,16 @@
 </head>
 <body>
 
+<!-- 🔒 LOCK SCREEN -->
+<div id="locked">
+    <h1>🔒 Page Locked</h1>
+    <p>Yeh page open hoga:</p>
+    <h2 id="unlock-time"></h2>
+</div>
+
+<!-- ❤️ MAIN CONTENT -->
+<div id="mainContent">
+
   <div class="container">
     <h1>HAPPY VALENTINE DAY MY EVERYTHING ❤️</h1>
 
@@ -88,36 +123,59 @@
     </p>
 
     <div class="slideshow">
-<img src="ujala2.png">
+      <img src="ujala2.png">
       <img src="ujala3.png">
       <img src="poshak.png">
-      <img src="together.png"
-        <img src="ujala4.png"
+      <img src="together.png">
+      <img src="ujala4.png">
     </div>
   </div>
 
-  <script>
-    function createRain(symbol, className, count) {
-      for (let i = 0; i < count; i++) {
-        let drop = document.createElement("div");
-        drop.className = className;
-        drop.innerHTML = symbol;
-        drop.style.left = Math.random() * 100 + "vw";
-        drop.style.animationDuration = (3 + Math.random() * 5) + "s";
-        drop.style.fontSize = (18 + Math.random() * 22) + "px";
-        document.body.appendChild(drop);
+</div>
 
-        setTimeout(() => {
-          drop.remove();
-        }, 8000);
-      }
+<script>
+  // Unlock date → 14 Feb 2026, 12:00 AM
+  const unlockDate = new Date(2026, 1, 14, 0, 0, 0);
+
+  // Show unlock time on lock screen
+  document.getElementById("unlock-time").innerText =
+    unlockDate.toLocaleString("en-IN", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true
+    });
+
+  // Check current time
+  const now = new Date();
+
+  if (now >= unlockDate) {
+      document.getElementById("locked").style.display = "none";
+      document.getElementById("mainContent").style.display = "block";
+  }
+</script>
+
+<script>
+  function createRain(symbol, className, count) {
+    for (let i = 0; i < count; i++) {
+      let drop = document.createElement("div");
+      drop.className = className;
+      drop.innerHTML = symbol;
+      drop.style.left = Math.random() * 100 + "vw";
+      drop.style.animationDuration = (3 + Math.random() * 5) + "s";
+      drop.style.fontSize = (18 + Math.random() * 22) + "px";
+      document.body.appendChild(drop);
+
+      setTimeout(() => {
+        drop.remove();
+      }, 8000);
     }
+  }
 
-    setInterval(() => createRain("❤️", "heart", 10), 500);
-    setInterval(() => createRain("🌸", "flower", 6), 700);
-
-
-
+  setInterval(() => createRain("❤️", "heart", 10), 500);
+  setInterval(() => createRain("🌸", "flower", 6), 700);
 </script>
 
 <audio id="bgMusic" autoplay loop>
@@ -130,60 +188,6 @@
     music.play();
   }, { once: true });
 </script>
-
-<div id="cinema">
-  <div id="type"></div>
-</div>
-
-<style>
-#cinema{
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle, #000, #020024);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999;
-  opacity: 0;
-  pointer-events: none;
-  transition: 1.5s;
-}
-
-#cinema.show{
-  opacity: 1;
-  pointer-events: all;
-.music-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 12px 18px;
-  border-radius: 30px;
-  border: none;
-  background: #ff2d55;
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
-  box-shadow: 0 0 15px rgba(0,0,0,0.3);
-  z-index: 100000;
-  animation: pulse 1.5s infinite;
-}
-
-  
-
-#type{
-  color: #ff4d6d;
-  font-size: 40px;
-  text-align: center;
-  font-weight: bold;
-  max-width: 90%;
-  line-height: 1.6;
-  text-shadow: 0 0 15px rgba(255,77,109,0.8);
-}
-</style>
-
-
-</script>
-
 
 <script>
 const msg = `From the moment you came into my life ❤️
@@ -209,10 +213,7 @@ setTimeout(() => {
   }, 45);
 
 }, 20000); // 20 sec baad start
-
 </script>
-
 
 </body>
 </html>
-
