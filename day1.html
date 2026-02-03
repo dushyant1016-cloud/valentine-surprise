@@ -91,37 +91,43 @@
 </head>
 <body>
 
-<!-- 🔒 LOCK SCRIPT (BODY KE START ME) -->
 <script>
-  // 📅 7 February, 12:00 AM (current year)
-  const unlockDate = new Date(
-    new Date().getFullYear(), // year
-    1, // February (0 = Jan)
-    7, // date
-    0, 0, 0 // 12:00 AM
-  );
-
+  // 📅 FIXED UNLOCK DATE: 7 Feb 2026, 12:00 AM
+  const unlockDate = new Date(2026, 1, 7, 0, 0, 0);
   const now = new Date();
 
-  if (now < unlockDate) {
+  // 🔑 localStorage key
+  const unlocked = localStorage.getItem("day1Unlocked");
+
+  // 🔓 Agar pehle hi unlock ho chuka hai
+  if (unlocked === "true") {
+    // kuch bhi mat karo, page open rahe
+  }
+  // 🔒 Agar abhi time nahi aaya
+  else if (now < unlockDate) {
     document.body.innerHTML = `
       <div style="text-align:center; margin-top:20%; font-family:Arial;">
         <h1>🔒 Page Locked</h1>
         <p>
           Yeh page open hoga:<br>
-          <b>7 February, 12:00 AM</b>
+          <b>7 February 2026, 12:00 AM</b>
         </p>
       </div>
     `;
   }
+  // ✅ Time aa chuka → unlock + save
+  else {
+    localStorage.setItem("day1Unlocked", "true");
+  }
 </script>
 
-<!-- ✅ REAL CONTENT (sirf unlock ke baad dikhega) -->
+<!-- ✅ REAL CONTENT (unlock ke baad hamesha dikhega) -->
 <h1>🎉 Welcome to Day 1</h1>
 <p>Yeh Day 1 ka content hai.</p>
 
 </body>
 </html>
+
 
 </body>
 </html>
