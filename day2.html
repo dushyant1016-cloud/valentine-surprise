@@ -154,47 +154,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Day 2</title>
 
-<script>
-// Lock key (unique for this page)
-const unlockKey = "day2_unlocked";
 
-// Check if page already unlocked before
-if (localStorage.getItem(unlockKey) === "true") {
-    // Already unlocked → always open
-    console.log("Day 2 is already unlocked.");
-} else {
-    // Time lock logic
-    const unlockTime = new Date("2026-02-08T00:00:00").getTime(); 
-    const now = new Date().getTime();
-
-    if (now < unlockTime) {
-        // Still locked → show lock screen
-        document.write(`
-            <style>
-                body { 
-                    font-family: Arial; 
-                    background: black; 
-                    color: white; 
-                    text-align: center; 
-                    margin-top: 20%; 
-                }
-            </style>
-            <h1>🔒 Day 2 Opens on<br>8 February 2026, 12:00 AM</h1>
-        `);
-    } else {
-        // Time passed → unlock permanently
-        localStorage.setItem(unlockKey, "true");
-        console.log("Day 2 unlocked forever.");
-    }
-}
-</script>
-
-</head>
-
-<body>
-
-<h1>❤️ Welcome to Day 2 ❤️</h1>
-<p>Your surprise content goes here...</p>
 
 
 </body>
