@@ -144,7 +144,54 @@ function declineRose() {
     "😡 Ujala jyda hi galt option pe click nhi kar diya tune!!! YES pe click karr 😤";
 }
 </script>
+<script>
+// Unlock date – 8 Feb 2026 @ 12:00 AM
+const unlockDate = new Date(2026, 1, 8, 0, 0, 0);
 
+document.getElementById("unlock-time").innerText =
+    unlockDate.toLocaleString("en-IN", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
+    });
+
+const now = new Date();
+
+// If current time >= unlock time → unlock page
+if (now >= unlockDate) {
+    document.getElementById("locked").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+}
+</script>
+
+</div> <!-- mainContent end -->
+</body>
 
 </body>
+  <body>
+
+<!-- LOCK SCREEN -->
+<div id="locked" style="
+    text-align:center;
+    padding-top:80px;
+    background:#ff9ac2;
+    height:100vh;
+    width:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    color:white;
+    font-family:Arial;
+    z-index: 9999;
+">
+    <h1>🔒 Page Locked</h1>
+    <p>Yeh page open hoga:</p>
+    <h2 id="unlock-time"></h2>
+</div>
+
+<!-- ACTUAL DAY-2 CONTENT (HIDDEN) -->
+<div id="mainContent" style="display:none;">
 </html>
