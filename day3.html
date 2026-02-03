@@ -107,6 +107,56 @@
 
  
 </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 3</title>
 
+<script>
+// Unique key for Day 3
+const unlockKey = "day3_unlocked";
+
+// If already unlocked → always open
+if (localStorage.getItem(unlockKey) === "true") {
+    console.log("Day 3 already unlocked.");
+} else {
+
+    // Unlock time for Day 3
+    const unlockTime = new Date("2026-02-09T00:00:00").getTime();
+    const now = new Date().getTime();
+
+    if (now < unlockTime) {
+        // Still locked
+        document.write(`
+            <style>
+                body { 
+                    font-family: Arial; 
+                    background: black; 
+                    color: white; 
+                    text-align: center; 
+                    margin-top: 20%; 
+                }
+            </style>
+            <h1>🔒 Day 3 Opens on<br>9 February 2026, 12:00 AM</h1>
+        `);
+    } else {
+        // Time passed → unlock permanently
+        localStorage.setItem(unlockKey, "true");
+        console.log("Day 3 unlocked forever.");
+    }
+}
+</script>
+
+</head>
+
+<body>
+
+<h1>💖 Welcome to Day 3 💖</h1>
+<p>Your special surprise content goes here...</p>
+
+</body>
+</html>
 </body>
 </html>
