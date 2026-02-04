@@ -1,87 +1,48 @@
 const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-window.addEventListener("resize", () => {
+function resize() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-});
+}
+resize();
+window.addEventListener("resize", resize);
 
 let particles = [];
 
-class Particle {
-  constructor(x, y, color, power = 1) {
-    this.x = x;
-    this.y = y;
-    this.radius = Math.random() * 3 + 1;
-    this.color = color;
-    this.velocity = {
-      x: (Math.random() - 0.5) * 6 * power,
-      y: (Math.random() - 0.5) * 6 * power
-    };
-    this.life = 60;
-  }
-
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fillStyle = this.color;
-    ctx.fill();
-  }
-
-  update() {
-    this.x += this.velocity.x;
-    this.y += this.velocity.y;
-    this.life--;
-    this.draw();
-  }
-}
-
-function createFirework(x, y, power = 1) {
-  const colors = ["#ff004f", "#ff9f1c", "#2ec4b6", "#ffffff", "#ff66cc"];
-  for (let i = 0; i < 60; i++) {
-    particles.push(
-      new Particle(x, y, colors[Math.floor(Math.random() * colors.length)], power)
-    );
+function firework(x, y) {
+  for (let i = 0; i < 40; i++) {
+    particles.push({
+      x,
+      y,
+      vx: (Math.random() - 0.5) * 6,
+      vy: (Math.random() - 0.5) * 6,
+      life: 60,
+      color: `hsl(${Math.random() * 360},100%,60%)`
+    });
   }
 }
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles = particles.filter(p => p.life > 0);
-  particles.forEach(p => p.update());
+  particles.forEach((p, i) => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.life--;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.fill();
+
+    if (p.life <= 0) particles.splice(i, 1);
+  });
   requestAnimationFrame(animate);
 }
-
 animate();
 
-// 🔥 Touch / Click pe firework (LOCK + UNLOCK dono pe kaam karega)
-document.addEventListener("click", (e) => {
-  createFirework(e.clientX, e.clientY, 1);
+document.addEventListener("click", e => firework(e.clientX, e.clientY));
+document.addEventListener("touchstart", e => {
+  const t = e.touches[0];
+  firework(t.clientX, t.clientY);
 });
-
-document.addEventListener("touchstart", (e) => {
-  const touch = e.touches[0];
-  createFirework(touch.clientX, touch.clientY, 1);
-});
-
-// 💥 UNLOCK PE AUTO BIG BLAST
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    bigBlast();
-  }, 800);
-});
-
-function bigBlast() {
-  for (let i = 0; i < 6; i++) {
-    setTimeout(() => {
-      createFirework(
-        Math.random() * canvas.width,
-        Math.random() * canvas.height,
-        2.5
-      );
-    }, i * 200);
-  }
-}
