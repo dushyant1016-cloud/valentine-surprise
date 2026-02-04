@@ -40,9 +40,13 @@ function animate() {
   requestAnimationFrame(animate);
 }
 animate();
+window.addEventListener("click", e => {
+  firework(e.clientX, e.clientY);
+});
 
-document.addEventListener("click", e => firework(e.clientX, e.clientY));
-document.addEventListener("touchstart", e => {
+window.addEventListener("touchstart", e => {
+  e.preventDefault();
   const t = e.touches[0];
   firework(t.clientX, t.clientY);
-});
+}, { passive: false });
+
