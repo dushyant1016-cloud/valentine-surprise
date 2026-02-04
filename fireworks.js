@@ -10,15 +10,24 @@ window.addEventListener("resize", resize);
 
 let particles = [];
 
+function heartShape(t) {
+  return {
+    x: 16 * Math.pow(Math.sin(t), 3),
+    y: -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t))
+  };
+}
+
 function firework(x, y) {
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 120; i++) {
+    const t = Math.random() * Math.PI * 2;
+    const p = heartShape(t);
     particles.push({
       x,
       y,
-      vx: (Math.random() - 0.5) * 6,
-      vy: (Math.random() - 0.5) * 6,
-      life: 60,
-      color: `hsl(${Math.random() * 360},100%,60%)`
+      vx: p.x * 0.35,
+      vy: p.y * 0.35,
+      life: 80,
+      color: `hsl(${Math.random() * 360},100%,70%)`
     });
   }
 }
@@ -31,15 +40,19 @@ function animate() {
     p.life--;
 
     ctx.beginPath();
-    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+    ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
     ctx.fillStyle = p.color;
+    ctx.shadowColor = p.color;
+    ctx.shadowBlur = 10;
     ctx.fill();
 
     if (p.life <= 0) particles.splice(i, 1);
   });
+
   requestAnimationFrame(animate);
 }
 animate();
+
 window.addEventListener("click", e => {
   firework(e.clientX, e.clientY);
 });
@@ -49,4 +62,3 @@ window.addEventListener("touchstart", e => {
   const t = e.touches[0];
   firework(t.clientX, t.clientY);
 }, { passive: false });
-
