@@ -72,18 +72,19 @@
 </div>
 
 <!-- 🎵 ROSE DAY MUSIC -->
-<audio id="bgMusic" autoplay loop>
+<audio id="bgMusic" loop>
   <source src="rose.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  document.addEventListener("click", function () {
+  function playMusic() {
     const music = document.getElementById("bgMusic");
-    music.play();
-  }, { once: true });
-</script>
+    music.play().catch(() => {
+        // Mobile browsers may block autoplay, retry after a short delay
+        setTimeout(() => music.play(), 500);
+    });
+  }
 
-<script>
   function acceptRose() {
     document.getElementById("msg").style.display = "block";
   }
@@ -91,9 +92,7 @@
   function declineRose() {
     alert("You don't have a choice to click this button 😜❤️");
   }
-</script>
 
-<script>
   // 📅 FIXED UNLOCK DATE: 7 Feb 2026, 12:00 AM
   const unlockDate = new Date(2026, 1, 7, 0, 0, 0);
   const now = new Date();
@@ -101,7 +100,8 @@
   const unlocked = localStorage.getItem("day1Unlocked");
 
   if (unlocked === "true") {
-    // already unlocked
+    // Already unlocked, play music automatically
+    playMusic();
   }
   else if (now < unlockDate) {
     document.body.innerHTML = `
@@ -115,7 +115,9 @@
     `;
   }
   else {
+    // First unlock
     localStorage.setItem("day1Unlocked", "true");
+    playMusic(); // 🔥 Play music immediately on unlock
   }
 </script>
 
