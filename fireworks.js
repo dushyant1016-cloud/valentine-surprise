@@ -38,7 +38,27 @@ function animate() {
     p.x += p.vx;
     p.y += p.vy;
     p.life--;
+function heartBurst(x, y) {
+  for (let i = 0; i < 12; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = x + (Math.random() * 60 - 30) + "px";
+    heart.style.top = y + "px";
+    document.body.appendChild(heart);
 
+    setTimeout(() => heart.remove(), 4000);
+  }
+}
+
+document.addEventListener("click", e => {
+  heartBurst(e.clientX, e.clientY);
+});
+
+document.addEventListener("touchstart", e => {
+  const t = e.touches[0];
+  heartBurst(t.clientX, t.clientY);
+});
     ctx.beginPath();
     ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
     ctx.fillStyle = p.color;
