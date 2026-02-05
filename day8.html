@@ -240,13 +240,21 @@ setTimeout(() => {
 }, 20000); // 20 sec baad start
 </script>
 
+<!-- ✅ FIXED NO BUTTON MOVEMENT CODE -->
 <script>
 const noBtn = document.getElementById("noBtn");
 const warningText = document.getElementById("warningText");
 
 function moveNoBtn() {
-  const x = Math.random() * (window.innerWidth - 120);
-  const y = Math.random() * (window.innerHeight - 120);
+  const btnWidth = noBtn.offsetWidth;
+  const btnHeight = noBtn.offsetHeight;
+
+  // safe random position inside viewport
+  const x = Math.random() * (window.innerWidth - btnWidth - 20);
+  const y = Math.random() * (window.innerHeight - btnHeight - 20);
+
+  // smooth transition
+  noBtn.style.transition = "all 0.3s ease";
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 }
