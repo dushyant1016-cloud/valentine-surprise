@@ -178,6 +178,22 @@ document.getElementById("unlock-time").innerText =
 
 const noBtn = document.getElementById("noBtn");
 
+// Function to create & play music after unlock
+function playMusic(){
+    const music = document.createElement("audio");
+    music.id="bgMusic";
+    music.loop=true;
+
+    const source = document.createElement("source");
+    source.src="song.mp3";
+    source.type="audio/mpeg";
+
+    music.appendChild(source);
+    document.body.appendChild(music);
+
+    music.play().catch(()=>setTimeout(()=>music.play(),500));
+}
+
 function unlockPage(){
   document.getElementById("locked").style.display = "none";
   document.getElementById("mainContent").style.display = "block";
@@ -187,9 +203,7 @@ function unlockPage(){
   moveNoButtonRandomly(); // initial position
   setInterval(moveNoButtonRandomly,1000); // movement every sec
 
-  // 🎵 PLAY MUSIC ONLY AFTER UNLOCK
-  const music = document.getElementById("bgMusic");
-  if(music) music.play();
+  playMusic(); // 🔥 play music only on unlock
 }
 
 if(now>=unlockDate) unlockPage();
@@ -209,10 +223,10 @@ function moveNoButtonRandomly(){
 const yesBtn = document.getElementById("yesBtn");
 yesBtn.addEventListener("click",()=>{
   const alertBox=document.getElementById("customAlert");
-  document.getElementById("alertText").innerText=
-  `I Love You Ujala ❤️ Forever and Always 💖`;
+  document.getElementById("alertText").innerText=`I Love You Ujala ❤️ Forever and Always 💖`;
   alertBox.style.display="block";
 
+  // Particle blast around YES button
   const rect=yesBtn.getBoundingClientRect();
   const particlesCount=50;
   for(let i=0;i<particlesCount;i++){
@@ -236,9 +250,7 @@ yesBtn.addEventListener("click",()=>{
   }
 });
 
-function closeAlert(){
-  document.getElementById("customAlert").style.display="none";
-}
+function closeAlert(){ document.getElementById("customAlert").style.display="none"; }
 
 // Rain animation (hearts & flowers)
 function createRain(symbol, className, count){
@@ -255,13 +267,6 @@ function createRain(symbol, className, count){
 }
 setInterval(()=>createRain("❤️","heart",10),500);
 setInterval(()=>createRain("🌸","flower",6),700);
-</script>
-
-<!-- 🎵 Background Music -->
-<audio id="bgMusic" src="song.mp3" loop></audio>
-
-<script>
-  // remove old click-based play
 </script>
 
 </body>
