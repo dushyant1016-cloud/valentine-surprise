@@ -143,6 +143,18 @@
 
 </div>
 
+<!-- 🎵 PROPOSE DAY MUSIC -->
+<audio id="bgMusic" autoplay loop>
+  <source src="propose.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  document.addEventListener("click", function () {
+    const music = document.getElementById("bgMusic");
+    music.play();
+  }, { once: true });
+</script>
+
 <!-- JS -->
 <script>
 function acceptRose() {
