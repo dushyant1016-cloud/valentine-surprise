@@ -36,20 +36,20 @@
         }
         h1{color:#e6005c;margin:15px 0 10px}
         p{color:#333;font-size:15px;line-height:1.6}
+
         .btn-wrapper {
-  text-align: center;
-  margin-top: 15px;
-}
+          text-align: center;
+          margin-top: 15px;
+        }
 
-#msg {
-  margin-top: 10px;
-  font-weight: bold;
-  color: #ff3366;
-}
-
+        #msg {
+          margin-top: 10px;
+          font-weight: bold;
+          color: #ff3366;
+        }
     </style>
-
 </head>
+
 <body>
 
 <div class="card">
@@ -60,20 +60,29 @@
         Just like a rose spreads fragrance everywhere, your presence fills every moment with happiness and positivity.  
         May this rose bring a beautiful smile to your face and make your day more special and memorable than ever. Once again happy rose day ujala.
     </p>
-<div class="btn-wrapper">
-  <button onclick="acceptRose()">Accept 🌹</button>
-  <button onclick="declineRose()">Decline 😅</button>
+
+    <div class="btn-wrapper">
+      <button onclick="acceptRose()">Accept 🌹</button>
+      <button onclick="declineRose()">Decline 😅</button>
+    </div>
+
+    <p id="msg" style="display:none;">
+      Rose accepted ❤️ Love you ujala!
+    </p>
 </div>
 
-<p id="msg" style="display:none; color:#ff3366; font-weight:bold; margin-top:10px;">
-  Rose accepted ❤️ Love you ujala!
-</p>
+<!-- 🎵 ROSE DAY MUSIC -->
+<audio id="bgMusic" autoplay loop>
+  <source src="rose.mp3" type="audio/mpeg">
+</audio>
 
-  <script>
-    function acceptRose() {
-      document.getElementById("msg").style.display = "block";
-    }
-  </script>
+<script>
+  document.addEventListener("click", function () {
+    const music = document.getElementById("bgMusic");
+    music.play();
+  }, { once: true });
+</script>
+
 <script>
   function acceptRose() {
     document.getElementById("msg").style.display = "block";
@@ -83,27 +92,17 @@
     alert("You don't have a choice to click this button 😜❤️");
   }
 </script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Day 1</title>
-</head>
-<body>
 
 <script>
   // 📅 FIXED UNLOCK DATE: 7 Feb 2026, 12:00 AM
   const unlockDate = new Date(2026, 1, 7, 0, 0, 0);
   const now = new Date();
 
-  // 🔑 localStorage key
   const unlocked = localStorage.getItem("day1Unlocked");
 
-  // 🔓 Agar pehle hi unlock ho chuka hai
   if (unlocked === "true") {
-    // kuch bhi mat karo, page open rahe
+    // already unlocked
   }
-  // 🔒 Agar abhi time nahi aaya
   else if (now < unlockDate) {
     document.body.innerHTML = `
       <div style="text-align:center; margin-top:20%; font-family:Arial;">
@@ -115,19 +114,10 @@
       </div>
     `;
   }
-  // ✅ Time aa chuka → unlock + save
   else {
     localStorage.setItem("day1Unlocked", "true");
   }
 </script>
-
-<!-- ✅ REAL CONTENT (unlock ke baad hamesha dikhega) -->
-<h1>🎉 Welcome to Day 1</h1>
-<p>Yeh Day 1 ka content hai.</p>
-
-</body>
-</html>
-
 
 </body>
 </html>
