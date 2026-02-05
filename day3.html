@@ -141,7 +141,7 @@
 
 </div>
 
-<!-- 🔑 JS for Lock System -->
+<!-- 🔑 JS for Lock System & Music -->
 <script>
 // Unlock date → 9 Feb 2026, 12:00 AM
 const unlockDate = new Date(2026, 1, 9, 0, 0, 0);
@@ -160,14 +160,29 @@ document.getElementById("unlock-time").innerText =
 // Check current time
 const now = new Date();
 
+function playMusic() {
+    const music = document.createElement("audio");
+    music.id = "bgMusic";
+    music.loop = true;
+
+    const source = document.createElement("source");
+    source.src = "chocolate.mp3";
+    source.type = "audio/mpeg";
+
+    music.appendChild(source);
+    document.body.appendChild(music);
+
+    music.play().catch(() => {
+        setTimeout(() => music.play(), 500);
+    });
+}
+
 if (now >= unlockDate) {
     document.getElementById("locked").style.display = "none";
     document.getElementById("mainContent").style.display = "flex";
+    playMusic(); // 🔥 Music autoplay on unlock
 }
 </script>
-
-<!-- 🎵 Background Music -->
-<audio id="bgMusic" src="chocolate.mp3" autoplay loop></audio>
 
 </body>
 </html>
