@@ -77,3 +77,26 @@ canvas#fireworks{
   pointer-events: none;
   z-index: 5;
 }
+.heartbeat {
+  animation: beat 1s infinite;
+}
+
+@keyframes beat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  40% { transform: scale(1); }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.heart {
+  position: fixed;
+  font-size: 22px;
+  animation: floatUp 4s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-150px); opacity: 0; }
+}
