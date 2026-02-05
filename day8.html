@@ -83,33 +83,14 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
   color:black;
   cursor:default;
   user-select:none;
-  display:none; /* initially hidden */
-}
-
-/* CUSTOM ALERT MODAL */
-#customAlert {
-  position:fixed;
-  top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  background:#ff4d6d;
-  color:white;
-  padding:30px;
-  border-radius:20px;
-  max-width:500px;
-  font-size:18px;
+  pointer-events:none;
   display:none;
-  z-index:10000;
-  text-align:center;
 }
 
-#customAlert button {
-  margin-top:20px;
-  padding:10px 20px;
-  border:none;
-  border-radius:15px;
-  background:white;
-  color:#ff4d6d;
-  cursor:pointer;
+/* TEXT BELOW NO BUTTON */
+#warningText {
+  margin-top:15px; 
+  font-size:18px; 
   font-weight:bold;
 }
 
@@ -157,16 +138,12 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
       <div class="valentine-buttons" style="position:relative; height:180px; margin-top:20px;">
         <button id="yesBtn">YES ❤️</button>
       </div>
+      <p id="warningText"></p>
     </div>
   </div>
 </div>
 
 <button id="noBtn">NO 😈</button>
-
-<div id="customAlert">
-  <div id="alertText"></div>
-  <button onclick="closeAlert()">Close</button>
-</div>
 
 <script>
 const unlockDate = new Date(2026,1,14,0,0,0);
@@ -175,42 +152,13 @@ document.getElementById("unlock-time").innerText =
   unlockDate.toLocaleString("en-IN", {day:"numeric", month:"long", year:"numeric", hour:"2-digit", minute:"2-digit", hour12:true});
 
 const noBtn = document.getElementById("noBtn");
+const warningText = document.getElementById("warningText");
 const yesBtn = document.getElementById("yesBtn");
 
-// MUSIC FUNCTION
-function playMusic(){
-    const music = document.createElement("audio");
-    music.id="bgMusic";
-    music.loop=true;
-    const source = document.createElement("source");
-    source.src="song.mp3";
-    source.type="audio/mpeg";
-    music.appendChild(source);
-    document.body.appendChild(music);
-    music.play().catch(()=>setTimeout(()=>music.play(),500));
-}
+let noBtnClickable = true; // 10 sec ke liye click allowed
+let noMoveInterval;
 
-// UNLOCK PAGE
-function unlockPage(){
-  document.getElementById("locked").style.display = "none";
-  document.getElementById("mainContent").style.display = "block";
-  document.getElementById("valentineSection").style.display = "block";
-
-  playMusic(); // play music on unlock
-
-  // SHOW NO BUTTON near YES for 10 sec
-  const rect = yesBtn.getBoundingClientRect();
-  noBtn.style.left = rect.left + 80 + "px";
-  noBtn.style.top = rect.top + "px";
-  noBtn.style.display = "block";
-
-  setTimeout(()=>{
-      // START random movement after 10 sec
-      setInterval(moveNoButtonRandomly,1000);
-  },10000);
-}
-
-// RANDOM MOVE FUNCTION
+// MOVE FUNCTION
 function moveNoButtonRandomly(){
   const btnWidth=noBtn.offsetWidth;
   const btnHeight=noBtn.offsetHeight;
@@ -220,22 +168,54 @@ function moveNoButtonRandomly(){
   noBtn.style.top=y+"px";
 }
 
-// CHECK TIME
-if(now>=unlockDate) unlockPage();
-else setInterval(()=>{if(new Date()>=unlockDate) unlockPage();},1000);
+// UNLOCK PAGE FUNCTION
+function unlockPage(){
+  document.getElementById("locked").style.display = "none";
+  document.getElementById("mainContent").style.display = "block";
+  document.getElementById("valentineSection").style.display = "block";
 
-// YES BUTTON CLICK
+  // SHOW NO BUTTON NEAR YES FOR 10 SEC
+  const rect = yesBtn.getBoundingClientRect();
+  noBtn.style.left = rect.left + 80 + "px";
+  noBtn.style.top = rect.top + "px";
+  noBtn.style.display = "block";
+  noBtnClickable = true;
+  warningText.innerText = ""; // reset
+
+  // MUSIC AUTOPLAY
+  const bgMusic = document.createElement("audio");
+  bgMusic.id = "bgMusic";
+  bgMusic.loop = true;
+  const source = document.createElement("source");
+  source.src = "song.mp3";
+  source.type = "audio/mpeg";
+  bgMusic.appendChild(source);
+  document.body.appendChild(bgMusic);
+  bgMusic.play().catch(()=>setTimeout(()=>bgMusic.play(),500));
+
+  // 10 sec ke baad move start aur click disable
+  setTimeout(()=>{
+      noBtnClickable = false;
+      noMoveInterval = setInterval(moveNoButtonRandomly,1000);
+      warningText.innerText = ""; // hide text after move starts
+  },10000);
+}
+
+// NO BUTTON CLICK EVENT
+noBtn.addEventListener("click", ()=>{
+  if(noBtnClickable){
+      warningText.innerText = "Ujala pehle padh le 💖"; // text show only first 10 sec
+  }
+});
+
+// YES BUTTON CLICK FUNCTION (particle effect)
 yesBtn.addEventListener("click",()=>{
-  const alertBox=document.getElementById("customAlert");
-  document.getElementById("alertText").innerText=`I Love You Ujala ❤️ Forever and Always 💖`;
-  alertBox.style.display="block";
-
-  const rect=yesBtn.getBoundingClientRect();
-  const particlesCount=50;
+  const rect = yesBtn.getBoundingClientRect();
+  const particlesCount = 50;
   for(let i=0;i<particlesCount;i++){
-    const p=document.createElement("div");
+    const p = document.createElement("div");
     p.className="particle";
-    p.innerHTML=Math.random()>0.5?"❤️":"🌸";
+    p.innerHTML = Math.random()>0.5?"❤️":"🌸";
     document.body.appendChild(p);
     const startX=rect.left + rect.width/2;
     const startY=rect.top + rect.height/2;
@@ -245,12 +225,18 @@ yesBtn.addEventListener("click",()=>{
     const radius=50+Math.random()*100;
     const destX=startX+radius*Math.cos(angle);
     const destY=startY+radius*Math.sin(angle);
-    setTimeout(()=>{p.style.left=destX+"px"; p.style.top=destY+"px"; p.style.opacity=0;},10);
+    setTimeout(()=>{
+      p.style.left=destX+"px";
+      p.style.top=destY+"px";
+      p.style.opacity=0;
+    },10);
     setTimeout(()=>{p.remove();},1200);
   }
 });
 
-function closeAlert(){ document.getElementById("customAlert").style.display="none"; }
+// CHECK UNLOCK TIME
+if(now>=unlockDate) unlockPage();
+else setInterval(()=>{if(new Date()>=unlockDate) unlockPage();},1000);
 
 // HEART & FLOWER RAIN
 function createRain(symbol, className, count){
@@ -268,5 +254,6 @@ function createRain(symbol, className, count){
 setInterval(()=>createRain("❤️","heart",10),500);
 setInterval(()=>createRain("🌸","flower",6),700);
 </script>
+
 </body>
 </html>
