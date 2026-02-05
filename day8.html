@@ -142,7 +142,7 @@
           YES ❤️
         </button>
 
-        <button id="noBtn" onmouseover="moveNoBtn()" onclick="noClicked()"
+        <button id="noBtn" onclick="noClicked()"
           style="padding:12px 28px; font-size:18px; border:none; border-radius:25px; background:white; color:black; position:absolute; cursor:pointer;">
           NO 😈
         </button>
@@ -240,11 +240,16 @@ setTimeout(() => {
 }, 20000); // 20 sec baad start
 </script>
 
-<!-- ✅ FIXED NO BUTTON MOVEMENT CODE -->
+<!-- ✅ FULLY FIXED NO BUTTON MOVEMENT -->
 <script>
 const noBtn = document.getElementById("noBtn");
 const warningText = document.getElementById("warningText");
 
+// set button style safe
+noBtn.style.position = "absolute";
+noBtn.style.zIndex = 10000;
+
+// function to move button safely
 function moveNoBtn() {
   const btnWidth = noBtn.offsetWidth;
   const btnHeight = noBtn.offsetHeight;
@@ -254,10 +259,24 @@ function moveNoBtn() {
   const y = Math.random() * (window.innerHeight - btnHeight - 20);
 
   // smooth transition
-  noBtn.style.transition = "all 0.3s ease";
+  noBtn.style.transition = "all 0.25s ease";
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 }
+
+// trigger move when mouse gets close
+document.addEventListener("mousemove", function(e) {
+  const rect = noBtn.getBoundingClientRect();
+  const buffer = 100; // pixels around button
+  if (
+    e.clientX >= rect.left - buffer &&
+    e.clientX <= rect.right + buffer &&
+    e.clientY >= rect.top - buffer &&
+    e.clientY <= rect.bottom + buffer
+  ) {
+    moveNoBtn();
+  }
+});
 
 function noClicked() {
   warningText.innerText = "Ujala tune bahut galat option pe click kiya 😤 YES pe click karo ❤️";
@@ -266,6 +285,9 @@ function noClicked() {
 function yesClicked() {
   alert("I Love You Ujala ❤️ Forever and Always 💖");
 }
+
+// set initial position
+moveNoBtn();
 </script>
 
 </body>
