@@ -180,17 +180,33 @@ document.getElementById("unlock-time").innerText =
     hour12: true
   });
 
+// Function to play music after unlock
+function playMusic() {
+    const music = document.createElement("audio");
+    music.id = "bgMusic";
+    music.loop = true;
+
+    const source = document.createElement("source");
+    source.src = "promise.mp3";
+    source.type = "audio/mpeg";
+
+    music.appendChild(source);
+    document.body.appendChild(music);
+
+    music.play().catch(() => {
+        setTimeout(() => music.play(), 500);
+    });
+}
+
 // Check current time
 const now = new Date();
 
 if (now >= unlockDate) {
     document.getElementById("locked").style.display = "none";
     document.getElementById("mainContent").style.display = "flex";
+    playMusic(); // 🔥 Music autoplay on unlock
 }
 </script>
-
-<!-- 🎵 Background Music -->
-<audio id="bgMusic" src="promise.mp3" autoplay loop></audio>
 
 </body>
 </html>
