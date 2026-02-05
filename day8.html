@@ -111,7 +111,7 @@
     }
 
     #noBtn {
-      position: fixed; /* full screen */
+      position: fixed; /* full screen movement */
       z-index: 9999;
       padding:12px 28px;
       font-size:18px;
@@ -122,17 +122,20 @@
       cursor: default; /* hover/click effect disabled */
       user-select: none;
       pointer-events: none; /* disable clicks */
+      display: none; /* hidden initially */
     }
   </style>
 </head>
 <body>
 
+<!-- LOCK SCREEN -->
 <div id="locked">
     <h1>🔒 Page Locked</h1>
     <p>Yeh page open hoga:</p>
     <h2 id="unlock-time"></h2>
 </div>
 
+<!-- MAIN CONTENT -->
 <div id="mainContent">
   <div class="container">
     <h1>HAPPY VALENTINE DAY MY EVERYTHING ❤️</h1>
@@ -164,12 +167,16 @@
   </div>
 </div>
 
-<!-- NO button visible on full screen -->
+<!-- NO BUTTON -->
 <button id="noBtn">NO 😈</button>
 
+<!-- SCRIPTS -->
 <script>
   // Unlock date → 14 Feb 2026, 12:00 AM
   const unlockDate = new Date(2026, 1, 14, 0, 0, 0);
+  const now = new Date();
+
+  // show unlock time on lock screen
   document.getElementById("unlock-time").innerText =
     unlockDate.toLocaleString("en-IN", {
       day: "numeric",
@@ -180,15 +187,59 @@
       hour12: true
     });
 
-  const now = new Date();
-  if (now >= unlockDate) {
-      document.getElementById("locked").style.display = "none";
-      document.getElementById("mainContent").style.display = "block";
-      document.getElementById("valentineSection").style.display = "block";
+  function unlockPage() {
+    document.getElementById("locked").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+    document.getElementById("valentineSection").style.display = "block";
+
+    // show NO button and start movement
+    const noBtn = document.getElementById("noBtn");
+    noBtn.style.display = "block";
+
+    // initial position
+    moveNoButtonRandomly();
+
+    // move continuously every 1 second
+    setInterval(moveNoButtonRandomly, 1000);
+  }
+
+  if(now >= unlockDate) {
+      unlockPage();
+  } else {
+      // check every 1 second until unlock
+      setInterval(() => {
+          if(new Date() >= unlockDate) unlockPage();
+      }, 1000);
   }
 </script>
 
 <script>
+  // FULL SCREEN NO BUTTON MOVEMENT
+  const noBtn = document.getElementById("noBtn");
+
+  function moveNoButtonRandomly() {
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
+
+    const x = Math.random() * (window.innerWidth - btnWidth - 10);
+    const y = Math.random() * (window.innerHeight - btnHeight - 10);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  }
+
+  // pointer-events none ensures NO button cannot be clicked
+  noBtn.style.pointerEvents = "none";
+</script>
+
+<script>
+function yesClicked() {
+  alert("I Love You Ujala ❤️ Forever and Always 💖");
+}
+</script>
+
+<script>
+  // Rain animation (hearts & flowers)
   function createRain(symbol, className, count) {
     for (let i = 0; i < count; i++) {
       let drop = document.createElement("div");
@@ -238,38 +289,6 @@ setTimeout(() => {
     if(i >= msg.length) clearInterval(typing);
   }, 45);
 }, 20000);
-</script>
-
-<!-- ✅ NEW FULL SCREEN NO BUTTON MOVEMENT -->
-<script>
-const noBtn = document.getElementById("noBtn");
-
-// function to randomly move NO button anywhere on viewport
-function moveNoButtonRandomly() {
-  const btnWidth = noBtn.offsetWidth;
-  const btnHeight = noBtn.offsetHeight;
-
-  const x = Math.random() * (window.innerWidth - btnWidth - 10);
-  const y = Math.random() * (window.innerHeight - btnHeight - 10);
-
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-}
-
-// initial position
-moveNoButtonRandomly();
-
-// move continuously every 1 second
-setInterval(moveNoButtonRandomly, 1000);
-
-// pointer-events none ensures NO button cannot be clicked
-noBtn.style.pointerEvents = "none";
-</script>
-
-<script>
-function yesClicked() {
-  alert("I Love You Ujala ❤️ Forever and Always 💖");
-}
 </script>
 
 </body>
