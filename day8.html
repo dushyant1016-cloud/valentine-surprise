@@ -186,6 +186,10 @@ function unlockPage(){
   noBtn.style.display = "block"; // show NO button
   moveNoButtonRandomly(); // initial position
   setInterval(moveNoButtonRandomly,1000); // movement every sec
+
+  // 🎵 PLAY MUSIC ONLY AFTER UNLOCK
+  const music = document.getElementById("bgMusic");
+  if(music) music.play();
 }
 
 if(now>=unlockDate) unlockPage();
@@ -204,13 +208,11 @@ function moveNoButtonRandomly(){
 // YES BUTTON CLICK FUNCTION
 const yesBtn = document.getElementById("yesBtn");
 yesBtn.addEventListener("click",()=>{
-  // Show custom alert text
   const alertBox=document.getElementById("customAlert");
   document.getElementById("alertText").innerText=
   `I Love You Ujala ❤️ Forever and Always 💖`;
   alertBox.style.display="block";
 
-  // Particle blast around YES button
   const rect=yesBtn.getBoundingClientRect();
   const particlesCount=50;
   for(let i=0;i<particlesCount;i++){
@@ -229,12 +231,7 @@ yesBtn.addEventListener("click",()=>{
     const destX=startX+radius*Math.cos(angle);
     const destY=startY+radius*Math.sin(angle);
 
-    setTimeout(()=>{
-      p.style.left=destX+"px";
-      p.style.top=destY+"px";
-      p.style.opacity=0;
-    },10);
-
+    setTimeout(()=>{p.style.left=destX+"px"; p.style.top=destY+"px"; p.style.opacity=0;},10);
     setTimeout(()=>{p.remove();},1200);
   }
 });
@@ -242,58 +239,29 @@ yesBtn.addEventListener("click",()=>{
 function closeAlert(){
   document.getElementById("customAlert").style.display="none";
 }
-</script>
 
-<script>
-  // Rain animation (hearts & flowers)
-  function createRain(symbol, className, count){
-    for(let i=0;i<count;i++){
-      let drop=document.createElement("div");
-      drop.className=className;
-      drop.innerHTML=symbol;
-      drop.style.left=Math.random()*100+"vw";
-      drop.style.animationDuration=(3+Math.random()*5)+"s";
-      drop.style.fontSize=(18+Math.random()*22)+"px";
-      document.body.appendChild(drop);
-      setTimeout(()=>{drop.remove();},8000);
-    }
+// Rain animation (hearts & flowers)
+function createRain(symbol, className, count){
+  for(let i=0;i<count;i++){
+    let drop=document.createElement("div");
+    drop.className=className;
+    drop.innerHTML=symbol;
+    drop.style.left=Math.random()*100+"vw";
+    drop.style.animationDuration=(3+Math.random()*5)+"s";
+    drop.style.fontSize=(18+Math.random()*22)+"px";
+    document.body.appendChild(drop);
+    setTimeout(()=>{drop.remove();},8000);
   }
-  setInterval(()=>createRain("❤️","heart",10),500);
-  setInterval(()=>createRain("🌸","flower",6),700);
+}
+setInterval(()=>createRain("❤️","heart",10),500);
+setInterval(()=>createRain("🌸","flower",6),700);
 </script>
 
-<audio id="bgMusic" autoplay loop>
-  <source src="song.mp3" type="audio/mpeg">
-</audio>
+<!-- 🎵 Background Music -->
+<audio id="bgMusic" src="song.mp3" loop></audio>
 
 <script>
-  document.addEventListener("click",function(){
-    document.getElementById("bgMusic").play();
-  },{once:true});
-</script>
-
-<script>
-const msg=`From the moment you came into my life ❤️
-Everything changed...
-
-You made me smile when I was broken,
-You made me strong when I was weak,
-
-Every heartbeat of mine says only one thing...
-
-I LOVE YOU MORE THAN ANYTHING 💖
-
-Happy Valentine's Day My Everything 💝`;
-
-let i=0;
-setTimeout(()=>{
-  if(document.getElementById("cinema")) document.getElementById("cinema").classList.add("show");
-  const typing=setInterval(()=>{
-    if(document.getElementById("type")) document.getElementById("type").innerHTML+=msg.charAt(i);
-    i++;
-    if(i>=msg.length) clearInterval(typing);
-  },45);
-},20000);
+  // remove old click-based play
 </script>
 
 </body>
