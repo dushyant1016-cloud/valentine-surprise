@@ -97,20 +97,7 @@
       100% { transform: translateY(110vh); }
     }
 
-    /* NO button fixed style */
-    #noBtn {
-      position: absolute;
-      z-index: 10000;
-      padding:12px 28px;
-      font-size:18px;
-      border:none;
-      border-radius:25px;
-      background:white;
-      color:black;
-      cursor:pointer;
-      transition: all 0.25s ease;
-    }
-
+    /* YES & NO button styles */
     #yesBtn {
       padding:12px 28px;
       font-size:18px;
@@ -119,6 +106,22 @@
       background:#ff4d6d;
       color:white;
       cursor:pointer;
+      position: relative;
+      z-index: 10;
+    }
+
+    #noBtn {
+      position: fixed; /* full screen */
+      z-index: 9999;
+      padding:12px 28px;
+      font-size:18px;
+      border:none;
+      border-radius:25px;
+      background:white;
+      color:black;
+      cursor: default; /* hover/click effect disabled */
+      user-select: none;
+      pointer-events: none; /* disable clicks */
     }
   </style>
 </head>
@@ -154,7 +157,6 @@
 
       <div class="valentine-buttons" style="position:relative; height:180px; margin-top:20px;">
         <button id="yesBtn" onclick="yesClicked()">YES ❤️</button>
-        <button id="noBtn" onclick="noClicked()">NO 😈</button>
       </div>
 
       <p id="warningText" style="margin-top:15px; font-size:18px; font-weight:bold;"></p>
@@ -162,10 +164,12 @@
   </div>
 </div>
 
+<!-- NO button visible on full screen -->
+<button id="noBtn">NO 😈</button>
+
 <script>
   // Unlock date → 14 Feb 2026, 12:00 AM
   const unlockDate = new Date(2026, 1, 14, 0, 0, 0);
-
   document.getElementById("unlock-time").innerText =
     unlockDate.toLocaleString("en-IN", {
       day: "numeric",
@@ -194,10 +198,7 @@
       drop.style.animationDuration = (3 + Math.random() * 5) + "s";
       drop.style.fontSize = (18 + Math.random() * 22) + "px";
       document.body.appendChild(drop);
-
-      setTimeout(() => {
-        drop.remove();
-      }, 8000);
+      setTimeout(() => { drop.remove(); }, 8000);
     }
   }
   setInterval(() => createRain("❤️", "heart", 10), 500);
@@ -231,23 +232,20 @@ Happy Valentine's Day My Everything 💝`;
 let i = 0;
 setTimeout(() => {
   if(document.getElementById("cinema")) document.getElementById("cinema").classList.add("show");
-
   const typing = setInterval(() => {
     if(document.getElementById("type")) document.getElementById("type").innerHTML += msg.charAt(i);
     i++;
     if(i >= msg.length) clearInterval(typing);
   }, 45);
-
 }, 20000);
 </script>
 
-<!-- ✅ FINAL STABLE NO BUTTON -->
+<!-- ✅ NEW FULL SCREEN NO BUTTON MOVEMENT -->
 <script>
 const noBtn = document.getElementById("noBtn");
-const warningText = document.getElementById("warningText");
 
-// function to set random position anywhere in viewport
-function moveNoBtn() {
+// function to randomly move NO button anywhere on viewport
+function moveNoButtonRandomly() {
   const btnWidth = noBtn.offsetWidth;
   const btnHeight = noBtn.offsetHeight;
 
@@ -259,29 +257,16 @@ function moveNoBtn() {
 }
 
 // initial position
-moveNoBtn();
+moveNoButtonRandomly();
 
-// move button every 1.5 sec automatically
-setInterval(moveNoBtn, 1500);
+// move continuously every 1 second
+setInterval(moveNoButtonRandomly, 1000);
 
-// move button when cursor is near
-document.addEventListener("mousemove", function(e) {
-  const rect = noBtn.getBoundingClientRect();
-  const buffer = 100;
-  if (
-    e.clientX >= rect.left - buffer &&
-    e.clientX <= rect.right + buffer &&
-    e.clientY >= rect.top - buffer &&
-    e.clientY <= rect.bottom + buffer
-  ) {
-    moveNoBtn();
-  }
-});
+// pointer-events none ensures NO button cannot be clicked
+noBtn.style.pointerEvents = "none";
+</script>
 
-function noClicked() {
-  warningText.innerText = "Ujala tune bahut galat option pe click kiya 😤 YES pe click karo ❤️";
-}
-
+<script>
 function yesClicked() {
   alert("I Love You Ujala ❤️ Forever and Always 💖");
 }
