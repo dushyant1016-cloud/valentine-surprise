@@ -144,19 +144,18 @@
 </div>
 
 <!-- 🎵 PROPOSE DAY MUSIC -->
-<audio id="bgMusic" autoplay loop>
+<audio id="bgMusic" loop>
   <source src="propose.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  document.addEventListener("click", function () {
+function playMusic() {
     const music = document.getElementById("bgMusic");
-    music.play();
-  }, { once: true });
-</script>
+    music.play().catch(() => {
+        setTimeout(() => music.play(), 500);
+    });
+}
 
-<!-- JS -->
-<script>
 function acceptRose() {
     document.getElementById("msg").style.display = "block";
     document.getElementById("msg").innerHTML =
@@ -187,6 +186,7 @@ const now = new Date();
 if (now >= unlockDate) {
     document.getElementById("locked").style.display = "none";
     document.getElementById("mainContent").style.display = "flex";
+    playMusic(); // 🔥 Music autoplay on unlock
 }
 </script>
 
