@@ -1,141 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Happy Valentine Day ❤️</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ff416c, #ff4b2b);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Poppins', sans-serif;
-      overflow: hidden;
-      color: white;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<title>Happy Valentine Day ❤️</title>
+<style>
+body {
+  margin:0;
+  height:100vh;
+  background:linear-gradient(135deg, #ff416c, #ff4b2b);
+  font-family:'Poppins', sans-serif;
+  overflow:hidden;
+  color:white;
+  text-align:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 
-    /* LOCK SCREEN STYLES */
-    #locked {
-      text-align:center;
-      padding-top:80px;
-      background:#ff9ac2;
-      height:100vh;
-      width:100%;
-      position:fixed;
-      top:0;
-      left:0;
-      color:white;
-      font-family:Arial;
-      z-index: 9999;
-    }
+#locked {
+  text-align:center;
+  padding-top:80px;
+  background:#ff9ac2;
+  height:100vh;
+  width:100%;
+  position:fixed;
+  top:0;
+  left:0;
+  color:white;
+  font-family:Arial;
+  z-index:9999;
+}
 
-    #unlock-time {
-      margin-top: 10px;
-    }
+#unlock-time { margin-top:10px; }
+#mainContent { display:none; }
 
-    /* MAIN CONTENT HIDDEN INITIALLY */
-    #mainContent {
-      display: none;
-    }
+.container { z-index:2; max-width:900px; padding:20px; }
+h1 { font-size:60px; margin-bottom:20px; text-transform:uppercase; letter-spacing:3px; }
+p { font-size:22px; line-height:1.7; margin-bottom:30px; }
 
-    .container {
-      z-index: 2;
-      max-width: 900px;
-      padding: 20px;
-    }
+.slideshow { display:flex; justify-content:center; gap:15px; flex-wrap:wrap; }
+.slideshow img { width:160px; height:200px; object-fit:cover; border-radius:15px; box-shadow:0 0 15px rgba(255,255,255,0.5); animation:zoom 4s infinite alternate; }
 
-    h1 {
-      font-size: 60px;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-    }
+@keyframes zoom { from{transform:scale(1);} to{transform:scale(1.08);} }
 
-    p {
-      font-size: 22px;
-      line-height: 1.7;
-      margin-bottom: 30px;
-    }
+.heart, .flower {
+  position: fixed;
+  top:-20px;
+  font-size:24px;
+  animation:fall linear infinite;
+  opacity:0.8;
+}
 
-    .slideshow {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
+.heart { color:#ffccd5; }
+.flower { color:#fff3b0; }
 
-    .slideshow img {
-      width: 160px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(255,255,255,0.5);
-      animation: zoom 4s infinite alternate;
-    }
+@keyframes fall {
+  0% { transform: translateY(-20px); }
+  100% { transform: translateY(110vh); }
+}
 
-    @keyframes zoom {
-      from { transform: scale(1); }
-      to { transform: scale(1.08); }
-    }
+/* YES & NO buttons */
+#yesBtn {
+  padding:12px 28px;
+  font-size:18px;
+  border:none;
+  border-radius:25px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+  position:relative;
+  z-index:10;
+}
 
-    .heart, .flower {
-      position: fixed;
-      top: -20px;
-      font-size: 24px;
-      animation: fall linear infinite;
-      opacity: 0.8;
-    }
+#noBtn {
+  position:fixed;
+  z-index:9999;
+  padding:12px 28px;
+  font-size:18px;
+  border:none;
+  border-radius:25px;
+  background:white;
+  color:black;
+  cursor:default;
+  user-select:none;
+  pointer-events:none;
+  display:none;
+}
 
-    .heart { color: #ffccd5; }
-    .flower { color: #fff3b0; }
+/* CUSTOM ALERT MODAL */
+#customAlert {
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  background:#ff4d6d;
+  color:white;
+  padding:30px;
+  border-radius:20px;
+  max-width:500px;
+  font-size:18px;
+  display:none;
+  z-index:10000;
+  text-align:center;
+}
 
-    @keyframes fall {
-      0% { transform: translateY(-20px); }
-      100% { transform: translateY(110vh); }
-    }
+#customAlert button {
+  margin-top:20px;
+  padding:10px 20px;
+  border:none;
+  border-radius:15px;
+  background:white;
+  color:#ff4d6d;
+  cursor:pointer;
+  font-weight:bold;
+}
 
-    /* YES & NO button styles */
-    #yesBtn {
-      padding:12px 28px;
-      font-size:18px;
-      border:none;
-      border-radius:25px;
-      background:#ff4d6d;
-      color:white;
-      cursor:pointer;
-      position: relative;
-      z-index: 10;
-    }
-
-    #noBtn {
-      position: fixed; /* full screen movement */
-      z-index: 9999;
-      padding:12px 28px;
-      font-size:18px;
-      border:none;
-      border-radius:25px;
-      background:white;
-      color:black;
-      cursor: default; /* hover/click effect disabled */
-      user-select: none;
-      pointer-events: none; /* disable clicks */
-      display: none; /* hidden initially */
-    }
-  </style>
+/* PARTICLE STYLE FOR BLAST */
+.particle {
+  position:absolute;
+  font-size:18px;
+  pointer-events:none;
+  user-select:none;
+  z-index:10000;
+  opacity:1;
+  transition: all 1s ease-out;
+}
+</style>
 </head>
 <body>
 
-<!-- LOCK SCREEN -->
 <div id="locked">
-    <h1>🔒 Page Locked</h1>
-    <p>Yeh page open hoga:</p>
-    <h2 id="unlock-time"></h2>
+  <h1>🔒 Page Locked</h1>
+  <p>Yeh page open hoga:</p>
+  <h2 id="unlock-time"></h2>
 </div>
 
-<!-- MAIN CONTENT -->
 <div id="mainContent">
   <div class="container">
     <h1>HAPPY VALENTINE DAY MY EVERYTHING ❤️</h1>
@@ -157,103 +155,111 @@
 
     <div id="valentineSection" style="display:none; margin-top:40px;">
       <h2 style="font-size:32px;">Will you be my Valentine forever? 💖</h2>
-
       <div class="valentine-buttons" style="position:relative; height:180px; margin-top:20px;">
-        <button id="yesBtn" onclick="yesClicked()">YES ❤️</button>
+        <button id="yesBtn">YES ❤️</button>
       </div>
-
       <p id="warningText" style="margin-top:15px; font-size:18px; font-weight:bold;"></p>
     </div>
   </div>
 </div>
 
-<!-- NO BUTTON -->
 <button id="noBtn">NO 😈</button>
 
-<!-- SCRIPTS -->
-<script>
-  // Unlock date → 14 Feb 2026, 12:00 AM
-  const unlockDate = new Date(2026, 1, 14, 0, 0, 0);
-  const now = new Date();
-
-  // show unlock time on lock screen
-  document.getElementById("unlock-time").innerText =
-    unlockDate.toLocaleString("en-IN", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true
-    });
-
-  function unlockPage() {
-    document.getElementById("locked").style.display = "none";
-    document.getElementById("mainContent").style.display = "block";
-    document.getElementById("valentineSection").style.display = "block";
-
-    // show NO button and start movement
-    const noBtn = document.getElementById("noBtn");
-    noBtn.style.display = "block";
-
-    // initial position
-    moveNoButtonRandomly();
-
-    // move continuously every 1 second
-    setInterval(moveNoButtonRandomly, 1000);
-  }
-
-  if(now >= unlockDate) {
-      unlockPage();
-  } else {
-      // check every 1 second until unlock
-      setInterval(() => {
-          if(new Date() >= unlockDate) unlockPage();
-      }, 1000);
-  }
-</script>
+<div id="customAlert">
+  <div id="alertText"></div>
+  <button onclick="closeAlert()">Close</button>
+</div>
 
 <script>
-  // FULL SCREEN NO BUTTON MOVEMENT
-  const noBtn = document.getElementById("noBtn");
+const unlockDate = new Date(2026,1,14,0,0,0);
+const now = new Date();
+document.getElementById("unlock-time").innerText =
+  unlockDate.toLocaleString("en-IN", {day:"numeric", month:"long", year:"numeric", hour:"2-digit", minute:"2-digit", hour12:true});
 
-  function moveNoButtonRandomly() {
-    const btnWidth = noBtn.offsetWidth;
-    const btnHeight = noBtn.offsetHeight;
+const noBtn = document.getElementById("noBtn");
 
-    const x = Math.random() * (window.innerWidth - btnWidth - 10);
-    const y = Math.random() * (window.innerHeight - btnHeight - 10);
+function unlockPage(){
+  document.getElementById("locked").style.display = "none";
+  document.getElementById("mainContent").style.display = "block";
+  document.getElementById("valentineSection").style.display = "block";
 
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+  noBtn.style.display = "block"; // show NO button
+  moveNoButtonRandomly(); // initial position
+  setInterval(moveNoButtonRandomly,1000); // movement every sec
+}
+
+if(now>=unlockDate) unlockPage();
+else setInterval(()=>{if(new Date()>=unlockDate) unlockPage();},1000);
+
+// FULL SCREEN NO BUTTON MOVEMENT
+function moveNoButtonRandomly(){
+  const btnWidth=noBtn.offsetWidth;
+  const btnHeight=noBtn.offsetHeight;
+  const x=Math.random()*(window.innerWidth-btnWidth-10);
+  const y=Math.random()*(window.innerHeight-btnHeight-10);
+  noBtn.style.left=x+"px";
+  noBtn.style.top=y+"px";
+}
+
+// YES BUTTON CLICK FUNCTION
+const yesBtn = document.getElementById("yesBtn");
+yesBtn.addEventListener("click",()=>{
+  // Show custom alert text
+  const alertBox=document.getElementById("customAlert");
+  document.getElementById("alertText").innerText=
+  `I Love You Ujala ❤️ Forever and Always 💖`;
+  alertBox.style.display="block";
+
+  // Particle blast around YES button
+  const rect=yesBtn.getBoundingClientRect();
+  const particlesCount=50;
+  for(let i=0;i<particlesCount;i++){
+    const p=document.createElement("div");
+    p.className="particle";
+    p.innerHTML=Math.random()>0.5?"❤️":"🌸";
+    document.body.appendChild(p);
+
+    const startX=rect.left + rect.width/2;
+    const startY=rect.top + rect.height/2;
+    p.style.left=startX+"px";
+    p.style.top=startY+"px";
+
+    const angle=Math.random()*2*Math.PI;
+    const radius=50+Math.random()*100;
+    const destX=startX+radius*Math.cos(angle);
+    const destY=startY+radius*Math.sin(angle);
+
+    setTimeout(()=>{
+      p.style.left=destX+"px";
+      p.style.top=destY+"px";
+      p.style.opacity=0;
+    },10);
+
+    setTimeout(()=>{p.remove();},1200);
   }
+});
 
-  // pointer-events none ensures NO button cannot be clicked
-  noBtn.style.pointerEvents = "none";
-</script>
-
-<script>
-function yesClicked() {
-  alert("I Love You Ujala ❤️ Forever and Always 💖");
+function closeAlert(){
+  document.getElementById("customAlert").style.display="none";
 }
 </script>
 
 <script>
   // Rain animation (hearts & flowers)
-  function createRain(symbol, className, count) {
-    for (let i = 0; i < count; i++) {
-      let drop = document.createElement("div");
-      drop.className = className;
-      drop.innerHTML = symbol;
-      drop.style.left = Math.random() * 100 + "vw";
-      drop.style.animationDuration = (3 + Math.random() * 5) + "s";
-      drop.style.fontSize = (18 + Math.random() * 22) + "px";
+  function createRain(symbol, className, count){
+    for(let i=0;i<count;i++){
+      let drop=document.createElement("div");
+      drop.className=className;
+      drop.innerHTML=symbol;
+      drop.style.left=Math.random()*100+"vw";
+      drop.style.animationDuration=(3+Math.random()*5)+"s";
+      drop.style.fontSize=(18+Math.random()*22)+"px";
       document.body.appendChild(drop);
-      setTimeout(() => { drop.remove(); }, 8000);
+      setTimeout(()=>{drop.remove();},8000);
     }
   }
-  setInterval(() => createRain("❤️", "heart", 10), 500);
-  setInterval(() => createRain("🌸", "flower", 6), 700);
+  setInterval(()=>createRain("❤️","heart",10),500);
+  setInterval(()=>createRain("🌸","flower",6),700);
 </script>
 
 <audio id="bgMusic" autoplay loop>
@@ -261,14 +267,13 @@ function yesClicked() {
 </audio>
 
 <script>
-  document.addEventListener("click", function () {
-    const music = document.getElementById("bgMusic");
-    music.play();
-  }, { once: true });
+  document.addEventListener("click",function(){
+    document.getElementById("bgMusic").play();
+  },{once:true});
 </script>
 
 <script>
-const msg = `From the moment you came into my life ❤️
+const msg=`From the moment you came into my life ❤️
 Everything changed...
 
 You made me smile when I was broken,
@@ -280,15 +285,15 @@ I LOVE YOU MORE THAN ANYTHING 💖
 
 Happy Valentine's Day My Everything 💝`;
 
-let i = 0;
-setTimeout(() => {
+let i=0;
+setTimeout(()=>{
   if(document.getElementById("cinema")) document.getElementById("cinema").classList.add("show");
-  const typing = setInterval(() => {
-    if(document.getElementById("type")) document.getElementById("type").innerHTML += msg.charAt(i);
+  const typing=setInterval(()=>{
+    if(document.getElementById("type")) document.getElementById("type").innerHTML+=msg.charAt(i);
     i++;
-    if(i >= msg.length) clearInterval(typing);
-  }, 45);
-}, 20000);
+    if(i>=msg.length) clearInterval(typing);
+  },45);
+},20000);
 </script>
 
 </body>
