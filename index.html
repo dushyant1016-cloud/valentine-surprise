@@ -24,7 +24,105 @@
 <canvas id="fireworks"></canvas>
 <script src="fireworks.js"></script>
 
+<script>
+let lastUnlocked = "";
 
+const dayEffects = {
+  rose: () => {
+    playMusic("rose.mp3");
+    multiBlast(4, 1.5);
+  },
+  propose: () => {
+    playMusic("propose.mp3");
+    heartMegaBlast();
+  },
+  chocolate: () => {
+    playMusic("chocolate.mp3");
+    rainHearts(25);
+  },
+  teddy: () => {
+    playMusic("teddy.mp3");
+    softFireworks();
+  },
+  promise: () => {
+    playMusic("promise.mp3");
+    centerBlast();
+  },
+  hug: () => {
+    playMusic("hug.mp3");
+    multiBlast(8, 2.5);
+  },
+  kiss: () => {
+    playMusic("kiss.mp3");
+    heartMegaBlast();
+  },
+  valentine: () => {
+    playMusic("valentine.mp3");
+    ultimateBlast();
+  }
+};
+
+function playMusic(src) {
+  let music = document.getElementById("bgMusic");
+  music.src = src;
+  music.play();
+}
+
+function multiBlast(times, power) {
+  for (let i = 0; i < times; i++) {
+    setTimeout(() => {
+      firework(Math.random()*innerWidth, Math.random()*innerHeight, power || 1);
+    }, i * 200);
+  }
+}
+
+function centerBlast() {
+  for (let i = 0; i < 6; i++) {
+    setTimeout(() => {
+      firework(innerWidth/2, innerHeight/2, 2);
+    }, i * 150);
+  }
+}
+
+function heartMegaBlast() {
+  for (let i = 0; i < 4; i++) {
+    setTimeout(() => {
+      firework(innerWidth/2, innerHeight/2, 3);
+    }, i * 200);
+  }
+}
+
+function rainHearts(count) {
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => {
+      heartBurst(Math.random()*innerWidth, Math.random()*innerHeight);
+    }, i * 120);
+  }
+}
+
+function softFireworks() {
+  multiBlast(5, 0.8);
+}
+
+function ultimateBlast() {
+  centerBlast();
+  rainHearts(40);
+  setTimeout(() => multiBlast(10, 3), 800);
+}
+
+// 🔍 AUTO DETECT UNLOCKED DAY
+const observer = new MutationObserver(() => {
+  for (let day in dayEffects) {
+    const el = document.getElementById(day);
+    if (el && getComputedStyle(el).display !== "none" && lastUnlocked !== day) {
+      lastUnlocked = day;
+      dayEffects[day]();
+    }
+  }
+});
+
+observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+</script>
   <body>
 
 <audio id="bgMusic" src="music.mp3"></audio>
