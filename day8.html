@@ -113,7 +113,6 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
 </head>
 <body>
 
-<!-- MUSIC -->
 <audio id="bgMusic" src="song.mp3" preload="auto" loop></audio>
 
 <div id="locked">
@@ -163,38 +162,22 @@ document.getElementById("unlock-time").innerText =
 
 const noBtn=document.getElementById("noBtn");
 const yesBtn=document.getElementById("yesBtn");
-const yesResponse=document.getElementById("yesResponse");
-const warningText=document.getElementById("warningText");
 const bgMusic=document.getElementById("bgMusic");
-
-let noBtnClickable=true;
-let moveInterval=null;
 
 const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-// UNLOCK FUNCTION → MUSIC AUTO PLAY (DAY8 STYLE)
 function unlockPage(){
   document.getElementById("locked").style.display="none";
   document.getElementById("mainContent").style.display="block";
   document.getElementById("valentineSection").style.display="block";
 
-  bgMusic.play().catch(()=>{});   // 🔥 YAHI FIX HAI
+  bgMusic.play().catch(()=>{});
 
   const rect=yesBtn.getBoundingClientRect();
-  noBtn.style.left=rect.left+80+"px";
+  noBtn.style.left=rect.left+100+"px";
   noBtn.style.top=rect.top+"px";
   noBtn.style.display="block";
-
-  setTimeout(()=>{
-    noBtnClickable=false;
-  },10000);
 }
-
-noBtn.addEventListener("click",()=>{
-  if(noBtnClickable){
-    warningText.innerText="😈 Yeh toh bahut zyada ulte kaam maane jaayenge tere 😈";
-  }
-});
 
 function moveNo(){
   const x=Math.random()*(window.innerWidth-noBtn.offsetWidth);
@@ -203,8 +186,9 @@ function moveNo(){
   noBtn.style.top=y+"px";
 }
 
+// Desktop → move only when mouse is near
 document.addEventListener("mousemove",e=>{
-  if(isMobile || noBtnClickable) return;
+  if(isMobile) return;
 
   const bx=noBtn.offsetLeft+noBtn.offsetWidth/2;
   const by=noBtn.offsetTop+noBtn.offsetHeight/2;
@@ -212,18 +196,19 @@ document.addEventListener("mousemove",e=>{
   const dist=Math.hypot(e.clientX-bx,e.clientY-by);
 
   if(dist<80){
-    if(!moveInterval) moveInterval=setInterval(moveNo,300);
-  }else{
-    clearInterval(moveInterval);
-    moveInterval=null;
+    moveNo();
   }
 });
 
+// Mobile → continuous move
 if(isMobile){
-  setInterval(moveNo,300);
+  setInterval(moveNo,350);
 }
 
-// YES CLICK → BLAST ONLY
+// NO click block
+noBtn.addEventListener("click",e=>e.preventDefault());
+
+// YES blast same
 yesBtn.addEventListener("click",()=>{
 
   yesResponse.innerText="Yayyy ❤️ I knew it! I love you sooo much 😘💖";
@@ -255,11 +240,9 @@ yesBtn.addEventListener("click",()=>{
   }
 });
 
-// CHECK UNLOCK
 if(now>=unlockDate) unlockPage();
 else setInterval(()=>{ if(new Date()>=unlockDate) unlockPage(); },1000);
 
-// RAIN
 function rain(sym,cls,c){
   for(let i=0;i<c;i++){
     const d=document.createElement("div");
