@@ -55,7 +55,7 @@
     }
 
     .btn {
-      margin-top: 15px;
+      margin-top: 12px;
       padding: 10px 26px;
       border: none;
       border-radius: 25px;
@@ -64,6 +64,8 @@
       color: white;
       cursor: pointer;
       transition: 0.3s;
+      margin-left: 5px;
+      margin-right: 5px;
     }
 
     .btn:hover {
@@ -71,7 +73,6 @@
       background: #e63b5d;
     }
 
-    /* LOCK SCREEN STYLES */
     #locked {
       text-align:center;
       padding-top:80px;
@@ -90,7 +91,6 @@
       margin-top: 10px;
     }
 
-    /* Hide main content initially */
     #mainContent {
       display: none;
     }
@@ -100,14 +100,12 @@
 
 <body>
 
-<!-- 🔒 LOCK SCREEN -->
 <div id="locked">
     <h1>🔒 Page Locked</h1>
     <p>Yeh page open hoga:</p>
     <h2 id="unlock-time"></h2>
 </div>
 
-<!-- ❤️ MAIN CONTENT -->
 <div id="mainContent">
 
   <div class="card">
@@ -131,11 +129,11 @@
     </p>
 
     <button class="btn" onclick="kiss()">Send Virtual Kiss 😘</button>
+    <button class="btn" onclick="ignoreMsg()">Ignore This 😜</button>
   </div>
 
 </div>
 
-<!-- 🔑 JS LOCK SYSTEM + Button -->
 <script>
 function kiss() {
     document.body.innerHTML = `
@@ -149,6 +147,7 @@ function kiss() {
         text-align:center;
         font-family:poppins;
         flex-direction:column;
+        padding:20px;
       ">
         <h1>😘 Kiss Sent Successfully ❤️</h1>
         <h2>Across All The Distance 💫</h2>
@@ -157,10 +156,31 @@ function kiss() {
     `;
 }
 
+function ignoreMsg() {
+    document.body.innerHTML = `
+      <div style="
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        background:linear-gradient(135deg,#ff758c,#ff7eb3);
+        color:white;
+        text-align:center;
+        font-family:poppins;
+        flex-direction:column;
+        padding:25px;
+      ">
+        <h2>
+          ujala yeah toh schme bht jyda ulte kaam h tu ignore prr kaise click krr skti h
+          isme toh mera reply dekhne ke liye bhi nhi krna chahiye thaaa tujhe 😤💔
+        </h2>
+      </div>
+    `;
+}
+
 // Unlock date → 13 Feb 2026, 12:00 AM
 const unlockDate = new Date(2026, 1, 13, 0, 0, 0);
 
-// Show unlock time
 document.getElementById("unlock-time").innerText =
   unlockDate.toLocaleString("en-IN", {
     day: "numeric",
@@ -171,7 +191,6 @@ document.getElementById("unlock-time").innerText =
     hour12: true
   });
 
-// Function to play music after unlock
 function playMusic() {
     const music = document.createElement("audio");
     music.id = "bgMusic";
@@ -189,13 +208,12 @@ function playMusic() {
     });
 }
 
-// Check current time
 const now = new Date();
 
 if (now >= unlockDate) {
     document.getElementById("locked").style.display = "none";
     document.getElementById("mainContent").style.display = "flex";
-    playMusic(); // 🔥 Music autoplay on unlock
+    playMusic();
 }
 </script>
 
