@@ -95,6 +95,45 @@
       display: none;
     }
 
+    /* Flying Kiss Styles */
+    .flying-kiss {
+      position: fixed;
+      width: 100px;
+      z-index: 9999;
+      pointer-events: none;
+      animation: fly 2s ease forwards;
+    }
+
+    @keyframes fly {
+      0% {transform: translateY(0) scale(0.5); opacity:1;}
+      50% {transform: translateY(-200px) scale(1.2);}
+      100% {transform: translateY(-400px) scale(0.8); opacity:0;}
+    }
+
+    .kiss-msg {
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.9);
+      color: #ff4d6d;
+      padding: 15px 25px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+      z-index: 9999;
+      opacity: 0;
+      animation: msgFade 3s ease forwards;
+    }
+
+    @keyframes msgFade {
+      0% {opacity: 0;}
+      10% {opacity: 1;}
+      80% {opacity: 1;}
+      100% {opacity: 0;}
+    }
+
   </style>
 </head>
 
@@ -136,24 +175,26 @@
 
 <script>
 function kiss() {
-    document.body.innerHTML = `
-      <div style="
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        height:100vh;
-        background:linear-gradient(135deg,#ff758c,#ff7eb3);
-        color:white;
-        text-align:center;
-        font-family:poppins;
-        flex-direction:column;
-        padding:20px;
-      ">
-        <h1>😘😘😘 some kisses for u ❤️</h1>
-        <h2>Across All The Distance 💫</h2>
-        <h3>– From Dushyant To Ujala</h3>
-      </div>
-    `;
+    // Create flying kiss GIF
+    const kissGif = document.createElement("img");
+    kissGif.src = "kiss.gif"; // ye tera saved GIF
+    kissGif.className = "flying-kiss";
+    kissGif.style.left = Math.random() * (window.innerWidth - 100) + "px"; // random horizontal start
+    kissGif.style.bottom = "0px";
+
+    document.body.appendChild(kissGif);
+
+    // Remove GIF after animation
+    setTimeout(() => kissGif.remove(), 2000);
+
+    // Show message
+    const msg = document.createElement("div");
+    msg.className = "kiss-msg";
+    msg.innerText = "Some virtual kiss for u across all the distance 💞";
+
+    document.body.appendChild(msg);
+
+    setTimeout(() => msg.remove(), 3000);
 }
 
 function ignoreMsg() {
