@@ -4,60 +4,25 @@
 <meta charset="UTF-8">
 <title>Happy Valentine Day ❤️</title>
 <style>
-body {
+body{
   margin:0;
   height:100vh;
-  background:linear-gradient(135deg, #ff416c, #ff4b2b);
-  font-family:'Poppins', sans-serif;
+  background:linear-gradient(135deg,#ff416c,#ff4b2b);
+  font-family:'Poppins',sans-serif;
   overflow:hidden;
   color:white;
-  text-align:center;
   display:flex;
   justify-content:center;
   align-items:center;
-}
-
-#locked {
   text-align:center;
-  padding-top:80px;
-  background:#ff9ac2;
-  height:100vh;
-  width:100%;
-  position:fixed;
-  top:0;
-  left:0;
-  color:white;
-  font-family:Arial;
-  z-index:9999;
 }
 
-#unlock-time { margin-top:10px; }
-#mainContent { display:none; }
+#mainContent{display:none;}
+.container{max-width:900px;padding:20px;}
+h1{font-size:60px;}
+p{font-size:22px;line-height:1.6;}
 
-.container { z-index:2; max-width:900px; padding:20px; }
-h1 { font-size:60px; margin-bottom:20px; text-transform:uppercase; letter-spacing:3px; }
-p { font-size:22px; line-height:1.7; margin-bottom:30px; }
-
-.slideshow { display:flex; justify-content:center; gap:15px; flex-wrap:wrap; }
-.slideshow img { width:160px; height:200px; object-fit:cover; border-radius:15px; box-shadow:0 0 15px rgba(255,255,255,0.5); animation:zoom 4s infinite alternate; }
-
-@keyframes zoom { from{transform:scale(1);} to{transform:scale(1.08);} }
-
-.heart, .flower {
-  position: fixed;
-  top:-20px;
-  font-size:24px;
-  animation:fall linear infinite;
-  opacity:0.8;
-}
-
-@keyframes fall {
-  0% { transform: translateY(-20px); }
-  100% { transform: translateY(110vh); }
-}
-
-/* YES & NO buttons */
-#yesBtn {
+#yesBtn{
   padding:12px 28px;
   font-size:18px;
   border:none;
@@ -65,13 +30,10 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
   background:#ff4d6d;
   color:white;
   cursor:pointer;
-  position:relative;
-  z-index:10;
 }
 
-#noBtn {
+#noBtn{
   position:fixed;
-  z-index:9999;
   padding:12px 28px;
   font-size:18px;
   border:none;
@@ -79,160 +41,115 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
   background:white;
   color:black;
   cursor:pointer;
-  user-select:none;
   display:none;
-}
-
-/* TEXT BELOW */
-#warningText {
-  margin-top:15px; 
-  font-size:20px; 
-  font-weight:bold;
+  z-index:9999;
 }
 
 #yesResponse{
   margin-top:20px;
   font-size:26px;
   font-weight:bold;
-  animation:pop 0.6s ease;
+  animation:pop .6s ease;
 }
 
 @keyframes pop{
-  0%{transform:scale(0.5);opacity:0;}
-  100%{transform:scale(1);opacity:1;}
+  from{transform:scale(.5);opacity:0;}
+  to{transform:scale(1);opacity:1;}
 }
 
-/* PARTICLES */
-.particle {
+.particle{
   position:absolute;
   font-size:18px;
   pointer-events:none;
-  user-select:none;
-  z-index:10000;
-  opacity:1;
-  transition: all 1s ease-out;
+  transition:1s;
 }
 </style>
 </head>
-<body>
 
-<div id="locked">
-  <h1>🔒 Page Locked</h1>
-  <p>Yeh page open hoga:</p>
-  <h2 id="unlock-time"></h2>
-</div>
+<body>
 
 <div id="mainContent">
   <div class="container">
     <h1>HAPPY VALENTINE DAY MY EVERYTHING ❤️</h1>
-    <p>
-      You are not just my love, you are my happiness, my peace, my smile, and my whole world.  
-      Every heartbeat of mine whispers your name, and every moment I spend without you makes me miss you even more.  
-      Thank you for coming into my life and making it so beautiful.  
-      No matter how far we are, my heart will always belong to you.  
-      Today and forever, I choose you — only you. ❤️
-    </p>
+    <p>Will you be my Valentine forever? 💖</p>
 
-    <div class="slideshow">
-      <img src="ujala3.png">
-       <img src="ujala6.png">
-      <img src="poshak.png">
-      <img src="together.png">
-      <img src="ujala4.png">
-    </div>
-
-    <div id="valentineSection" style="display:none; margin-top:40px;">
-      <h2 style="font-size:32px;">Will you be my Valentine forever? 💖</h2>
-
-      <div style="position:relative; height:180px; margin-top:20px;">
-        <button id="yesBtn">YES ❤️</button>
-        <div id="yesResponse"></div>
-      </div>
-
-      <p id="warningText"></p>
-    </div>
+    <button id="yesBtn">YES ❤️</button>
+    <div id="yesResponse"></div>
   </div>
 </div>
 
 <button id="noBtn">NO 😈</button>
 
 <script>
-const unlockDate = new Date(2026,1,14,0,0,0);
-const now = new Date();
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
+const yesResponse=document.getElementById("yesResponse");
 
-document.getElementById("unlock-time").innerText =
-  unlockDate.toLocaleString("en-IN",{day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit",hour12:true});
+document.getElementById("mainContent").style.display="block";
 
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const warningText = document.getElementById("warningText");
-const yesResponse = document.getElementById("yesResponse");
+// place NO near YES at start
+const rect=yesBtn.getBoundingClientRect();
+noBtn.style.left=(rect.left+100)+"px";
+noBtn.style.top=rect.top+"px";
+noBtn.style.display="block";
 
-let noBtnClickable = false;
+let moveInterval=null;
 
-// UNLOCK
-function unlockPage(){
-  document.getElementById("locked").style.display="none";
-  document.getElementById("mainContent").style.display="block";
-  document.getElementById("valentineSection").style.display="block";
+// Detect mobile
+const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-  // MUSIC
-  const bgMusic=document.createElement("audio");
-  bgMusic.src="song.mp3";
-  bgMusic.loop=true;
-  document.body.appendChild(bgMusic);
-  bgMusic.play().catch(()=>setTimeout(()=>bgMusic.play(),500));
-
-  // NO BUTTON FIRST 10 SEC
-  const rect=yesBtn.getBoundingClientRect();
-  noBtn.style.left=rect.left+80+"px";
-  noBtn.style.top=rect.top+"px";
-  noBtn.style.display="block";
-  noBtnClickable=true;
-
-  setTimeout(()=>{
-    noBtnClickable=false;
-    noBtn.style.pointerEvents="none"; // ❌ click disable
-    setInterval(moveNoButtonRandomly,1000);
-  },10000);
-}
-
-// NO CLICK
-noBtn.addEventListener("click",()=>{
-  if(noBtnClickable){
-    warningText.innerText="😈 Yeh toh bahut zyada ulte kaam maane jaayenge tere 😈";
-  }
-});
-
-// MOVE NO BUTTON
-function moveNoButtonRandomly(){
+// MOVE FUNCTION
+function moveNo(){
   const x=Math.random()*(window.innerWidth-noBtn.offsetWidth);
   const y=Math.random()*(window.innerHeight-noBtn.offsetHeight);
   noBtn.style.left=x+"px";
   noBtn.style.top=y+"px";
 }
 
+// PC → move only when mouse close (~2cm)
+document.addEventListener("mousemove",e=>{
+  if(isMobile) return;
+
+  const bx=noBtn.offsetLeft+noBtn.offsetWidth/2;
+  const by=noBtn.offsetTop+noBtn.offsetHeight/2;
+
+  const dist=Math.hypot(e.clientX-bx,e.clientY-by);
+
+  if(dist<80){ // ≈ 2cm feel
+    if(!moveInterval){
+      moveInterval=setInterval(moveNo,300);
+    }
+  }else{
+    clearInterval(moveInterval);
+    moveInterval=null;
+  }
+});
+
+// MOBILE → nonstop runaway 😈
+if(isMobile){
+  setInterval(moveNo,300);
+}
+
 // YES CLICK
 yesBtn.addEventListener("click",()=>{
-
   yesResponse.innerText="Yayyy ❤️ I knew it! I love you sooo much 😘💖";
 
-  const rect=yesBtn.getBoundingClientRect();
-  for(let i=0;i<50;i++){
+  const r=yesBtn.getBoundingClientRect();
+  for(let i=0;i<40;i++){
     const p=document.createElement("div");
     p.className="particle";
     p.innerHTML=Math.random()>0.5?"❤️":"🌸";
     document.body.appendChild(p);
 
-    const sx=rect.left+rect.width/2;
-    const sy=rect.top+rect.height/2;
+    const sx=r.left+r.width/2;
+    const sy=r.top+r.height/2;
     p.style.left=sx+"px";
     p.style.top=sy+"px";
 
-    const angle=Math.random()*2*Math.PI;
-    const r=50+Math.random()*120;
-    const dx=sx+r*Math.cos(angle);
-    const dy=sy+r*Math.sin(angle);
+    const ang=Math.random()*2*Math.PI;
+    const d=60+Math.random()*120;
+    const dx=sx+d*Math.cos(ang);
+    const dy=sy+d*Math.sin(ang);
 
     setTimeout(()=>{
       p.style.left=dx+"px";
@@ -243,25 +160,6 @@ yesBtn.addEventListener("click",()=>{
     setTimeout(()=>p.remove(),1200);
   }
 });
-
-// CHECK UNLOCK
-if(now>=unlockDate) unlockPage();
-else setInterval(()=>{ if(new Date()>=unlockDate) unlockPage(); },1000);
-
-// RAIN EFFECT
-function rain(sym,cls,c){
-  for(let i=0;i<c;i++){
-    const d=document.createElement("div");
-    d.className=cls;
-    d.innerHTML=sym;
-    d.style.left=Math.random()*100+"vw";
-    d.style.animationDuration=(3+Math.random()*5)+"s";
-    document.body.appendChild(d);
-    setTimeout(()=>d.remove(),8000);
-  }
-}
-setInterval(()=>rain("❤️","heart",10),500);
-setInterval(()=>rain("🌸","flower",6),700);
 </script>
 
 </body>
