@@ -82,6 +82,12 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
   display:none;
 }
 
+#warningText {
+  margin-top:15px; 
+  font-size:18px; 
+  font-weight:bold;
+}
+
 .particle {
   position:absolute;
   font-size:18px;
@@ -106,6 +112,9 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
 </style>
 </head>
 <body>
+
+<!-- MUSIC -->
+<audio id="bgMusic" src="song.mp3" preload="auto" loop></audio>
 
 <div id="locked">
   <h1>🔒 Page Locked</h1>
@@ -138,6 +147,7 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
         <button id="yesBtn">YES ❤️</button>
         <div id="yesResponse"></div>
       </div>
+      <p id="warningText"></p>
     </div>
   </div>
 </div>
@@ -154,24 +164,38 @@ document.getElementById("unlock-time").innerText =
 const noBtn=document.getElementById("noBtn");
 const yesBtn=document.getElementById("yesBtn");
 const yesResponse=document.getElementById("yesResponse");
+const warningText=document.getElementById("warningText");
+const bgMusic=document.getElementById("bgMusic");
 
+let noBtnClickable=true;
 let moveInterval=null;
 
 const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-// UNLOCK FUNCTION
+// UNLOCK FUNCTION → MUSIC AUTO PLAY (DAY8 STYLE)
 function unlockPage(){
   document.getElementById("locked").style.display="none";
   document.getElementById("mainContent").style.display="block";
   document.getElementById("valentineSection").style.display="block";
 
+  bgMusic.play().catch(()=>{});   // 🔥 YAHI FIX HAI
+
   const rect=yesBtn.getBoundingClientRect();
-  noBtn.style.left=rect.left+90+"px";
+  noBtn.style.left=rect.left+80+"px";
   noBtn.style.top=rect.top+"px";
   noBtn.style.display="block";
+
+  setTimeout(()=>{
+    noBtnClickable=false;
+  },10000);
 }
 
-// MOVE FUNCTION
+noBtn.addEventListener("click",()=>{
+  if(noBtnClickable){
+    warningText.innerText="😈 Yeh toh bahut zyada ulte kaam maane jaayenge tere 😈";
+  }
+});
+
 function moveNo(){
   const x=Math.random()*(window.innerWidth-noBtn.offsetWidth);
   const y=Math.random()*(window.innerHeight-noBtn.offsetHeight);
@@ -179,9 +203,8 @@ function moveNo(){
   noBtn.style.top=y+"px";
 }
 
-// PC → mouse paas aaye tab bhage
 document.addEventListener("mousemove",e=>{
-  if(isMobile) return;
+  if(isMobile || noBtnClickable) return;
 
   const bx=noBtn.offsetLeft+noBtn.offsetWidth/2;
   const by=noBtn.offsetTop+noBtn.offsetHeight/2;
@@ -189,27 +212,21 @@ document.addEventListener("mousemove",e=>{
   const dist=Math.hypot(e.clientX-bx,e.clientY-by);
 
   if(dist<80){
-    if(!moveInterval) moveInterval=setInterval(moveNo,250);
+    if(!moveInterval) moveInterval=setInterval(moveNo,300);
   }else{
     clearInterval(moveInterval);
     moveInterval=null;
   }
 });
 
-// MOBILE → nonstop runaway
 if(isMobile){
-  setInterval(moveNo,250);
+  setInterval(moveNo,300);
 }
 
-// NO BUTTON → completely disable click
-noBtn.addEventListener("click",e=>{
-  e.preventDefault();
-  e.stopPropagation();
-});
-
-// YES CLICK → blast + sweet msg
+// YES CLICK → BLAST ONLY
 yesBtn.addEventListener("click",()=>{
-  yesResponse.innerText="Yayyy ❤️ I knew it! I love you😘💖 ab krr 2nd option choose";
+
+  yesResponse.innerText="Yayyy ❤️ I knew it! I love you sooo much 😘💖";
 
   const rect=yesBtn.getBoundingClientRect();
   for(let i=0;i<50;i++){
@@ -224,7 +241,7 @@ yesBtn.addEventListener("click",()=>{
     p.style.top=sy+"px";
 
     const angle=Math.random()*2*Math.PI;
-    const r=60+Math.random()*140;
+    const r=50+Math.random()*120;
     const dx=sx+r*Math.cos(angle);
     const dy=sy+r*Math.sin(angle);
 
