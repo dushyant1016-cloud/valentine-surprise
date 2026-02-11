@@ -55,15 +55,16 @@
     }
 
     .btn {
-      margin-top: 15px;
-      padding: 10px 26px;
+      margin-top: 12px;
+      padding: 10px 22px;
       border: none;
       border-radius: 25px;
-      font-size: 15px;
+      font-size: 14px;
       background: #ff4d6d;
       color: white;
       cursor: pointer;
       transition: 0.3s;
+      margin: 6px;
     }
 
     .btn:hover {
@@ -81,7 +82,6 @@
       50% {transform: scale(1.2);}
     }
 
-    /* LOCK SCREEN STYLES */
     #locked {
       text-align:center;
       padding-top:80px;
@@ -100,7 +100,6 @@
       margin-top: 10px;
     }
 
-    /* Hide main content initially */
     #mainContent {
       display: none;
     }
@@ -110,17 +109,15 @@
 
 <body>
 
-<!-- 🔒 LOCK SCREEN -->
 <div id="locked">
     <h1>🔒 Page Locked</h1>
     <p>Yeh page open hoga:</p>
     <h2 id="unlock-time"></h2>
 </div>
 
-<!-- ❤️ MAIN CONTENT -->
 <div id="mainContent">
 
-  <div class="card">
+  <div class="card" id="cardBox">
     <h2>Happy Hug Day 🤗</h2>
 
     <img src="hug.png" alt="Hug">
@@ -139,14 +136,19 @@
       <b>Happy Hug Day, my forever ❤️🤗</b>
     </p>
 
-    <button class="btn" onclick="hug()">Send A Warm Hug Me(Dushyant) 🤗</button>
+    <p style="font-weight:600;color:#ff4d6d;">
+      Will you send me some online warm hug?
+    </p>
+
+    <button class="btn" onclick="sendHug()">Send 🤗</button>
+    <button class="btn" onclick="noHug()">No </button>
+
   </div>
 
 </div>
 
-<!-- 🔑 JS LOCK SYSTEM + Button -->
 <script>
-function hug() {
+function sendHug() {
     document.body.innerHTML = `
       <div style="
         display:flex;
@@ -166,10 +168,17 @@ function hug() {
     `;
 }
 
-// Unlock date → 12 Feb 2026, 12:00 AM
+function noHug() {
+    document.getElementById("cardBox").innerHTML = `
+      <h2 style="color:#ff1f4b;">😣😨😲</h2>
+      <p style="font-size:16px;color:#333;">
+        abse kbhi bhi hug maang mttt lena merese bhi jab milee tab kyuki online hug bhi nhi bheji jaa rhi h tujhse toh dekh ab tu 😡
+      </p>
+    `;
+}
+
 const unlockDate = new Date(2026, 1, 12, 0, 0, 0);
 
-// Show unlock time
 document.getElementById("unlock-time").innerText =
   unlockDate.toLocaleString("en-IN", {
     day: "numeric",
@@ -180,7 +189,6 @@ document.getElementById("unlock-time").innerText =
     hour12: true
   });
 
-// Function to play music after unlock
 function playMusic() {
     const music = document.createElement("audio");
     music.id = "bgMusic";
@@ -198,13 +206,12 @@ function playMusic() {
     });
 }
 
-// Check current time
 const now = new Date();
 
 if (now >= unlockDate) {
     document.getElementById("locked").style.display = "none";
     document.getElementById("mainContent").style.display = "flex";
-    playMusic(); // 🔥 Music autoplay on unlock
+    playMusic();
 }
 </script>
 
