@@ -24,6 +24,7 @@
       text-align: center;
       box-shadow: 0 15px 35px rgba(0,0,0,0.35);
       animation: pop 0.7s ease;
+      z-index: 5;
     }
 
     @keyframes pop {
@@ -95,6 +96,22 @@
       display: none;
     }
 
+    /* 😘 EMOJI RAIN */
+    .kiss {
+      position: fixed;
+      top: -50px;
+      font-size: 28px;
+      animation: fall linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+      }
+    }
+
   </style>
 </head>
 
@@ -135,9 +152,25 @@
 </div>
 
 <script>
+function createKissRain() {
+  for (let i = 0; i < 40; i++) {
+    const kiss = document.createElement("div");
+    kiss.classList.add("kiss");
+    kiss.innerText = "😘";
+    kiss.style.left = Math.random() * 100 + "vw";
+    kiss.style.animationDuration = (2 + Math.random() * 3) + "s";
+    document.body.appendChild(kiss);
+
+    setTimeout(() => {
+      kiss.remove();
+    }, 5000);
+  }
+}
+
 function kiss() {
     document.body.innerHTML = `
       <div style="
+        position:relative;
         display:flex;
         justify-content:center;
         align-items:center;
@@ -148,12 +181,15 @@ function kiss() {
         font-family:poppins;
         flex-direction:column;
         padding:20px;
-      ">
+        overflow:hidden;
+      " id="kissScreen">
         <h1>😘😘😘 some kisses for u ❤️</h1>
         <h2>Across All The Distance 💫</h2>
         <h3>– From Dushyant To Ujala</h3>
       </div>
     `;
+
+    setInterval(createKissRain, 300);
 }
 
 function ignoreMsg() {
@@ -178,7 +214,6 @@ function ignoreMsg() {
     `;
 }
 
-// Unlock date → 13 Feb 2026, 12:00 AM
 const unlockDate = new Date(2026, 1, 13, 0, 0, 0);
 
 document.getElementById("unlock-time").innerText =
