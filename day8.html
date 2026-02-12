@@ -26,7 +26,6 @@ body{
   animation:fall linear infinite;
   z-index:1;
 }
-
 @keyframes fall{
   to{ transform:translateY(120vh); }
 }
@@ -44,15 +43,15 @@ body{
 
 .container{max-width:900px;padding:20px;z-index:2;}
 
+/* Pics in one line */
 .slideshow{
   display:flex;
   justify-content:center;
-  gap:15px;
-  flex-wrap:wrap;
+  gap:12px;
+  flex-wrap:nowrap;
 }
-
 .slideshow img{
-  max-width:90%;
+  max-width:140px;
   height:auto;
   border-radius:15px;
   animation:zoom 4s infinite alternate;
@@ -74,6 +73,20 @@ body{
 #yesBtn,#heartBtn{background:#ff4d6d;color:white;}
 #noBtn{background:white;color:black;position:relative;}
 #heartBtn{display:none;}
+
+/* Heart Blast */
+.heart{
+  position:fixed;
+  font-size:22px;
+  animation:blast 1s ease-out forwards;
+  pointer-events:none;
+  z-index:99999;
+}
+
+@keyframes blast{
+  0%{transform:scale(0) translate(0,0);opacity:1;}
+  100%{transform:scale(1.8) translate(var(--x),var(--y));opacity:0;}
+}
 
 #loveBox{
   position:fixed;
@@ -126,7 +139,6 @@ Today and forever, I choose you — only you. ❤️
 <img src="ujala6.png">
 <img src="poshak.png">
 <img src="together.png">
-<img src="ujala4.png">
 </div>
 
 <div id="valentineSection" style="display:none;margin-top:30px;">
@@ -135,7 +147,6 @@ Today and forever, I choose you — only you. ❤️
 <button id="yesBtn">YES ❤️</button>
 <button id="noBtn">NO 😈</button>
 
-<div id="yesResponse"></div>
 <br>
 <button id="heartBtn">Open My Heart ❤️</button>
 </div>
@@ -165,25 +176,41 @@ setInterval(()=>{ if(new Date()>=unlockDate) unlockPage(); },1000);
 
 document.body.addEventListener("click",()=>bgMusic.play(),{once:true});
 
-/* NO Button Behaviour */
+/* NO Button – instant move */
 const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseenter",()=>{
-  const padding=20;
-  const maxX=window.innerWidth-noBtn.offsetWidth-padding;
-  const maxY=window.innerHeight-noBtn.offsetHeight-padding;
+noBtn.addEventListener("mousemove",()=>{
+  const maxX=window.innerWidth-noBtn.offsetWidth-10;
+  const maxY=window.innerHeight-noBtn.offsetHeight-10;
 
   noBtn.style.position="fixed";
   noBtn.style.left=Math.random()*maxX+"px";
   noBtn.style.top=Math.random()*maxY+"px";
 });
 
-/* Letter */
-const letter=`Ujala, I never believed in magic until you walked into my life and changed everything. In your smile I find peace, in your words I find comfort, and in your love I find my home. Even when miles separate us, my heart beats only for you. You inspire me to become better every day. I promise to protect your heart, respect your feelings, and love you endlessly. You are my forever, my always, my everything. ❤️`;
+/* Heart Blast */
+const yesBtn=document.getElementById("yesBtn");
 
-yesBtn.onclick=()=>{
-  yesResponse.innerText="Yayyy ❤️ I knew it! I love you 😘 Ab heart open karo...";
+yesBtn.onclick=(e)=>{
+  blastHearts(e.clientX,e.clientY);
   heartBtn.style.display="inline-block";
 };
+
+function blastHearts(x,y){
+  for(let i=0;i<25;i++){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=x+"px";
+    h.style.top=y+"px";
+    h.style.setProperty("--x",(Math.random()*300-150)+"px");
+    h.style.setProperty("--y",(Math.random()*-300)+"px");
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),1000);
+  }
+}
+
+/* Letter */
+const letter=`Ujala, I never believed in magic until you walked into my life and changed everything... ❤️`;
 
 heartBtn.onclick=()=>{
   loveBox.style.display="flex";
@@ -205,11 +232,9 @@ function revealImages(){
   let i=0;
   function showOne(){
     if(i>=pics.length) return;
-
     const box=document.createElement("div");
     box.innerHTML="🤍❤️✨";
     imgReveal.appendChild(box);
-
     setTimeout(()=>{
       box.innerHTML=`<img src="${pics[i]}">`;
       i++;
