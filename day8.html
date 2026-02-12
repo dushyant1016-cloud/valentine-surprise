@@ -26,6 +26,7 @@ body{
   animation:fall linear infinite;
   z-index:1;
 }
+
 @keyframes fall{
   to{ transform:translateY(120vh); }
 }
@@ -43,31 +44,18 @@ body{
 
 .container{max-width:900px;padding:20px;z-index:2;}
 
-/* Top Pics */
 .slideshow{
   display:flex;
   justify-content:center;
-  gap:12px;
-  flex-wrap:nowrap;
-}
-.slideshow img{
-  max-width:140px;
-  height:auto;
-  border-radius:15px;
-  animation:zoom 4s infinite alternate;
+  gap:15px;
+  flex-wrap:wrap;
 }
 
-/* Reveal Pics */
-#imgReveal{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:nowrap;
-  margin-top:15px;
-}
-#imgReveal img{
-  width:130px;
-  border-radius:12px;
+.slideshow img{
+  width:160px;
+  height:200px;
+  border-radius:15px;
+  animation:zoom 4s infinite alternate;
 }
 
 @keyframes zoom{
@@ -84,21 +72,8 @@ body{
 }
 
 #yesBtn,#heartBtn{background:#ff4d6d;color:white;}
-#noBtn{background:white;color:black;position:relative;}
+#noBtn{background:white;color:black;}
 #heartBtn{display:none;}
-
-/* Heart Blast */
-.heart{
-  position:fixed;
-  font-size:22px;
-  animation:blast 1s ease-out forwards;
-  pointer-events:none;
-  z-index:99999;
-}
-@keyframes blast{
-  0%{transform:scale(0) translate(0,0);opacity:1;}
-  100%{transform:scale(1.8) translate(var(--x),var(--y));opacity:0;}
-}
 
 #loveBox{
   position:fixed;
@@ -114,16 +89,56 @@ body{
   background:#ff4b7b;
   padding:25px;
   border-radius:20px;
-  max-width:720px;
+  max-width:700px;
 }
 
 #typeText{font-size:20px;line-height:1.7;}
+
+#imgReveal{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.revealBox{
+  width:120px;
+  height:160px;
+  background:white;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  color:red;
+  animation:flash .5s;
+}
+
+@keyframes flash{
+  0%{opacity:0;}
+  50%{opacity:1;}
+  100%{opacity:0;}
+}
+
+.revealBox img{
+  width:120px;
+  height:160px;
+  border-radius:12px;
+  animation:pop .6s;
+}
+
+@keyframes pop{
+  0%{transform:scale(.3);opacity:0;}
+  100%{transform:scale(1);opacity:1;}
+}
 </style>
 </head>
 
 <body>
 
 <div class="rain" id="rain"></div>
+
 <audio id="bgMusic" src="song.mp3" loop preload="auto"></audio>
 
 <div id="locked">
@@ -150,6 +165,7 @@ Today and forever, I choose you — only you. ❤️
 <img src="ujala6.png">
 <img src="poshak.png">
 <img src="together.png">
+<img src="ujala4.png">
 </div>
 
 <div id="valentineSection" style="display:none;margin-top:30px;">
@@ -158,7 +174,8 @@ Today and forever, I choose you — only you. ❤️
 <button id="yesBtn">YES ❤️</button>
 <button id="noBtn">NO 😈</button>
 
-<br><br>
+<div id="yesResponse"></div>
+<br>
 <button id="heartBtn">Open My Heart ❤️</button>
 </div>
 
@@ -182,44 +199,24 @@ function unlockPage(){
   locked.style.display="none";
   mainContent.style.display="block";
   valentineSection.style.display="block";
+  bgMusic.play().catch(()=>{});
 }
 setInterval(()=>{ if(new Date()>=unlockDate) unlockPage(); },1000);
 
-document.body.addEventListener("click",()=>bgMusic.play(),{once:true});
-
-/* NO Button Instant Move */
-const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mousemove",()=>{
-  const maxX=window.innerWidth-noBtn.offsetWidth-10;
-  const maxY=window.innerHeight-noBtn.offsetHeight-10;
-
-  noBtn.style.position="fixed";
-  noBtn.style.left=Math.random()*maxX+"px";
-  noBtn.style.top=Math.random()*maxY+"px";
+/* NO button movement */
+noBtn.addEventListener("mouseover",()=>{
+  const x=Math.random()*300-150;
+  const y=Math.random()*200-100;
+  noBtn.style.transform=`translate(${x}px,${y}px)`;
 });
 
-/* Heart Blast */
-yesBtn.onclick=(e)=>{
-  blastHearts(e.clientX,e.clientY);
+/* Letter */
+const letter=`Ujala, I never believed in magic until you walked into my life and changed everything. In your smile I find peace, in your words I find comfort, and in your love I find my home. You are my forever, my always, my everything. ❤️`;
+
+yesBtn.onclick=()=>{
+  yesResponse.innerText="Yayyy ❤️ I knew it! I love you 😘 Ab heart open karo...";
   heartBtn.style.display="inline-block";
 };
-
-function blastHearts(x,y){
-  for(let i=0;i<25;i++){
-    const h=document.createElement("div");
-    h.className="heart";
-    h.innerHTML="❤️";
-    h.style.left=x+"px";
-    h.style.top=y+"px";
-    h.style.setProperty("--x",(Math.random()*300-150)+"px");
-    h.style.setProperty("--y",(Math.random()*-300)+"px");
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),1000);
-  }
-}
-
-/* Letter */
-const letter=`Ujala, I never believed in magic until you walked into my life and changed everything... ❤️`;
 
 heartBtn.onclick=()=>{
   loveBox.style.display="flex";
@@ -238,30 +235,38 @@ heartBtn.onclick=()=>{
 const pics=["pic1.png","pic2.png","pic3.png","pic4.png"];
 
 function revealImages(){
-  imgReveal.innerHTML="";
-  pics.forEach(src=>{
-    const img=document.createElement("img");
-    img.src=src;
-    imgReveal.appendChild(img);
-  });
+  let i=0;
+  function showOne(){
+    if(i>=pics.length) return;
+
+    const box=document.createElement("div");
+    box.className="revealBox";
+    box.innerHTML="🤍❤️✨";
+    imgReveal.appendChild(box);
+
+    setTimeout(()=>{
+      box.innerHTML=`<img src="${pics[i]}">`;
+      i++;
+      setTimeout(showOne,900);
+    },700);
+  }
+  showOne();
 }
 
-/* Medium Rain */
+/* Heart + Flower Rain */
 const rain=document.getElementById("rain");
-const items=["❤️","🌸","💖","🌹","💕","💞","✨"];
+const items=["❤️","🌸","💖","🌹","💕"];
 
 function createRain(){
-  for(let i=0;i<3;i++){
-    const span=document.createElement("span");
-    span.innerText=items[Math.floor(Math.random()*items.length)];
-    span.style.left=Math.random()*100+"vw";
-    span.style.animationDuration=(Math.random()*2.5+2.5)+"s";
-    span.style.fontSize=(Math.random()*18+18)+"px";
-    rain.appendChild(span);
-    setTimeout(()=>span.remove(),6000);
-  }
+  const span=document.createElement("span");
+  span.innerText=items[Math.floor(Math.random()*items.length)];
+  span.style.left=Math.random()*100+"vw";
+  span.style.animationDuration=(Math.random()*3+3)+"s";
+  span.style.fontSize=(Math.random()*20+15)+"px";
+  rain.appendChild(span);
+  setTimeout(()=>span.remove(),6000);
 }
-setInterval(createRain,150);
+setInterval(createRain,250);
 </script>
 
 </body>
