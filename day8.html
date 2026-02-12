@@ -4,106 +4,68 @@
 <meta charset="UTF-8">
 <title>Happy Valentine Day ❤️</title>
 <style>
-body {
+body{
   margin:0;
   height:100vh;
-  background:linear-gradient(135deg, #ff416c, #ff4b2b);
-  font-family:'Poppins', sans-serif;
+  background:linear-gradient(135deg,#ff416c,#ff4b2b);
+  font-family:'Poppins',sans-serif;
   overflow:hidden;
   color:white;
-  text-align:center;
   display:flex;
   justify-content:center;
   align-items:center;
-}
-
-#locked {
   text-align:center;
-  padding-top:80px;
+}
+
+#locked{
+  position:fixed;
+  inset:0;
   background:#ff9ac2;
-  height:100vh;
-  width:100%;
-  position:fixed;
-  top:0;
-  left:0;
-  color:white;
-  font-family:Arial;
   z-index:9999;
+  padding-top:80px;
 }
 
-#unlock-time { margin-top:10px; }
-#mainContent { display:none; }
+#unlock-time{margin-top:10px;}
+#mainContent{display:none;}
 
-.container { z-index:2; max-width:900px; padding:20px; }
-h1 { font-size:60px; margin-bottom:20px; text-transform:uppercase; letter-spacing:3px; }
-p { font-size:22px; line-height:1.7; margin-bottom:30px; }
+.container{max-width:900px;padding:20px;}
 
-.slideshow { display:flex; justify-content:center; gap:15px; flex-wrap:wrap; }
-.slideshow img { width:160px; height:200px; object-fit:cover; border-radius:15px; box-shadow:0 0 15px rgba(255,255,255,0.5); animation:zoom 4s infinite alternate; }
-
-@keyframes zoom { from{transform:scale(1);} to{transform:scale(1.08);} }
-
-.heart, .flower {
-  position: fixed;
-  top:-20px;
-  font-size:24px;
-  animation:fall linear infinite;
-  opacity:0.8;
+.slideshow{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
 }
 
-@keyframes fall {
-  0% { transform: translateY(-20px); }
-  100% { transform: translateY(110vh); }
+.slideshow img{
+  width:160px;
+  height:200px;
+  border-radius:15px;
+  animation:zoom 4s infinite alternate;
 }
 
-#yesBtn, #heartBtn {
+@keyframes zoom{
+  from{transform:scale(1);}
+  to{transform:scale(1.08);}
+}
+
+#yesBtn,#noBtn,#heartBtn{
   padding:12px 28px;
-  font-size:18px;
   border:none;
   border-radius:25px;
-  background:#ff4d6d;
-  color:white;
-  cursor:pointer;
-  position:relative;
-  z-index:10;
-  margin-top:15px;
-}
-
-#heartBtn{
-  display:none;
-  background:#ff2f6d;
-}
-
-#noBtn {
-  position:fixed;
-  z-index:9999;
-  padding:12px 28px;
   font-size:18px;
-  border:none;
-  border-radius:25px;
-  background:white;
-  color:black;
   cursor:pointer;
-  user-select:none;
-  display:none;
 }
 
-#yesResponse{
-  margin-top:20px;
-  font-size:26px;
-  font-weight:bold;
-  animation:pop 0.6s ease;
-}
+#yesBtn,#heartBtn{background:#ff4d6d;color:white;}
+#noBtn{background:white;color:black;}
 
-@keyframes pop{
-  0%{transform:scale(0.5);opacity:0;}
-  100%{transform:scale(1);opacity:1;}
-}
+#heartBtn{display:none;}
 
 #loveBox{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.85);
+  background:rgba(0,0,0,.85);
   display:none;
   align-items:center;
   justify-content:center;
@@ -117,28 +79,52 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
   max-width:700px;
 }
 
-#typeText{ font-size:20px; line-height:1.7; }
+#typeText{font-size:20px;line-height:1.7;}
 
-#imgReveal{ 
-  display:none; 
-  margin-top:15px; 
-  gap:10px; 
-  justify-content:center; 
-  flex-wrap:wrap; 
+#imgReveal{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:15px;
 }
 
-#imgReveal img{
+.revealBox{
+  width:120px;
+  height:160px;
+  background:white;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  color:red;
+  animation:flash .5s;
+}
+
+@keyframes flash{
+  0%{opacity:0;}
+  50%{opacity:1;}
+  100%{opacity:0;}
+}
+
+.revealBox img{
   width:120px;
   height:160px;
   border-radius:12px;
-  box-shadow:0 0 15px rgba(255,255,255,0.6);
-  animation:zoom 3s infinite alternate;
+  animation:pop .6s;
+}
+
+@keyframes pop{
+  0%{transform:scale(.3);opacity:0;}
+  100%{transform:scale(1);opacity:1;}
 }
 </style>
 </head>
+
 <body>
 
-<audio id="bgMusic" src="song.mp3" preload="auto" loop></audio>
+<audio id="bgMusic" src="song.mp3" loop preload="auto"></audio>
 
 <div id="locked">
   <h1>🔒 Page Locked</h1>
@@ -147,150 +133,104 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
 </div>
 
 <div id="mainContent">
-  <div class="container">
-    <h1>HAPPY VALENTINE DAY MY EVERYTHING ❤️</h1>
+<div class="container">
 
-    <p>
-      You are not just my love, you are my happiness, my peace, my smile, and my whole world.  
-      Every heartbeat of mine whispers your name, and every moment I spend without you makes me miss you even more.  
-      Thank you for coming into my life and making it so beautiful.  
-      No matter how far we are, my heart will always belong to you.  
-      Today and forever, I choose you — only you. ❤️
-    </p>
+<h1>HAPPY VALENTINE DAY ❤️</h1>
 
-    <div class="slideshow">
-      <img src="ujala2.png">
-      <img src="ujala6.png">
-      <img src="poshak.png">
-      <img src="together.png">
-      <img src="ujala4.png">
-    </div>
+<p>
+You are not just my love, you are my happiness, my peace, my smile and my whole world.
+</p>
 
-    <div id="valentineSection" style="display:none; margin-top:40px;">
-      <h2 style="font-size:32px;">Will you be my Valentine forever? 💖</h2>
-      <div style="position:relative; height:220px; margin-top:20px;">
-        <button id="yesBtn">YES ❤️</button>
-        <div id="yesResponse"></div>
-        <button id="heartBtn">Open My Heart ❤️</button>
-      </div>
-    </div>
-  </div>
+<div class="slideshow">
+<img src="ujala2.png">
+<img src="ujala6.png">
+<img src="poshak.png">
+<img src="together.png">
+<img src="ujala4.png">
 </div>
 
+<div id="valentineSection" style="display:none;margin-top:30px;">
+<h2>Will you be my Valentine forever? 💖</h2>
+
+<button id="yesBtn">YES ❤️</button>
 <button id="noBtn">NO 😈</button>
+
+<div id="yesResponse"></div>
+<br>
+<button id="heartBtn">Open My Heart ❤️</button>
+</div>
+
+</div>
+</div>
 
 <div id="loveBox">
   <div id="loveContent">
     <div id="typeText"></div>
-    <div id="imgReveal">
-      <img src="pic.png">
-      <img src="pic2.png">
-      <img src="pic3.png">
-      <img src="pic4.png">
-    </div>
+    <div id="imgReveal"></div>
   </div>
 </div>
 
 <script>
-const unlockDate = new Date(2026,1,14,0,0,0);
-const now = new Date();
-
-document.getElementById("unlock-time").innerText =
-  unlockDate.toLocaleString("en-IN",{day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit",hour12:true});
-
-const noBtn=document.getElementById("noBtn");
-const yesBtn=document.getElementById("yesBtn");
-const bgMusic=document.getElementById("bgMusic");
-
-const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+const unlockDate=new Date(2026,1,14,0,0,0);
+document.getElementById("unlock-time").innerText=
+unlockDate.toLocaleString("en-IN",{day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit",hour12:true});
 
 function unlockPage(){
-  document.getElementById("locked").style.display="none";
-  document.getElementById("mainContent").style.display="block";
-  document.getElementById("valentineSection").style.display="block";
-
+  locked.style.display="none";
+  mainContent.style.display="block";
+  valentineSection.style.display="block";
   bgMusic.play().catch(()=>{});
-
-  const rect=yesBtn.getBoundingClientRect();
-  noBtn.style.left=rect.left+100+"px";
-  noBtn.style.top=rect.top+"px";
-  noBtn.style.display="block";
 }
+setInterval(()=>{ if(new Date()>=unlockDate) unlockPage(); },1000);
 
-function moveNo(){
-  const x=Math.random()*(window.innerWidth-noBtn.offsetWidth);
-  const y=Math.random()*(window.innerHeight-noBtn.offsetHeight);
-  noBtn.style.left=x+"px";
-  noBtn.style.top=y+"px";
-}
-
-// Desktop → move only when mouse is near
-document.addEventListener("mousemove",e=>{
-  if(isMobile) return;
-
-  const bx=noBtn.offsetLeft+noBtn.offsetWidth/2;
-  const by=noBtn.offsetTop+noBtn.offsetHeight/2;
-
-  const dist=Math.hypot(e.clientX-bx,e.clientY-by);
-
-  if(dist<80){
-    moveNo();
-  }
+// NO button movement
+noBtn.addEventListener("mouseover",()=>{
+  const x=Math.random()*300-150;
+  const y=Math.random()*200-100;
+  noBtn.style.transform=`translate(${x}px,${y}px)`;
 });
 
-// Mobile → continuous move
-if(isMobile){
-  setInterval(moveNo,350);
-}
+// Letter
+const letter=`Ujala, I never believed in magic until you walked into my life and changed everything. In your smile I find peace, in your words I find comfort, and in your love I find my home. Every heartbeat whispers your name. You are my forever, my always, my everything. ❤️`;
 
-// NO click block
-noBtn.addEventListener("click",e=>e.preventDefault());
-
-// YES logic + new features
-const heartBtn=document.getElementById("heartBtn");
-const typeText=document.getElementById("typeText");
-const loveBox=document.getElementById("loveBox");
-const imgReveal=document.getElementById("imgReveal");
-
-const letter = `Ujala, I never believed in magic until you walked into my life and changed everything without even trying. In your smile, I find peace; in your words, I find comfort; and in your love, I find my home. Even when miles separate us, my heart knows only one direction — towards you. You inspire me to become better, to dream bigger, and to love deeper. Every memory with you is a treasure, and every moment without you is a reminder of how special you are to me. I promise to protect your heart, respect your feelings, and stand by you in every phase of life. You are my forever, my always, my everything. ❤️`;
-
-yesBtn.addEventListener("click",()=>{
-  yesResponse.innerText="Yayyy ❤️ I knew it! I love you 😘💖 Ab 2nd option pe click karo...";
+yesBtn.onclick=()=>{
+  yesResponse.innerText="Yayyy ❤️ I knew it! I love you 😘 Ab heart open karo...";
   heartBtn.style.display="inline-block";
-});
+};
 
-heartBtn.addEventListener("click",()=>{
+heartBtn.onclick=()=>{
   loveBox.style.display="flex";
   let i=0;
   typeText.innerHTML="";
-  imgReveal.style.display="none";
   const typer=setInterval(()=>{
-    typeText.innerHTML+=letter.charAt(i);
-    i++;
+    typeText.innerHTML+=letter.charAt(i++);
     if(i>=letter.length){
       clearInterval(typer);
-      setTimeout(()=>imgReveal.style.display="flex",600);
+      revealImages();
     }
   },40);
-});
+};
 
-if(now>=unlockDate) unlockPage();
-else setInterval(()=>{ if(new Date()>=unlockDate) unlockPage(); },1000);
+const pics=["pic1.png","pic2.png","pic3.png","pic4.png"];
 
-// falling hearts + flowers
-function rain(sym,cls,c){
-  for(let i=0;i<c;i++){
-    const d=document.createElement("div");
-    d.className=cls;
-    d.innerHTML=sym;
-    d.style.left=Math.random()*100+"vw";
-    d.style.animationDuration=(3+Math.random()*5)+"s";
-    document.body.appendChild(d);
-    setTimeout(()=>d.remove(),8000);
+function revealImages(){
+  let i=0;
+  function showOne(){
+    if(i>=pics.length) return;
+
+    const box=document.createElement("div");
+    box.className="revealBox";
+    box.innerHTML="🤍❤️✨";
+    imgReveal.appendChild(box);
+
+    setTimeout(()=>{
+      box.innerHTML=`<img src="${pics[i]}">`;
+      i++;
+      setTimeout(showOne,900);
+    },700);
   }
+  showOne();
 }
-setInterval(()=>rain("❤️","heart",10),500);
-setInterval(()=>rain("🌸","flower",6),700);
 </script>
 
 </body>
