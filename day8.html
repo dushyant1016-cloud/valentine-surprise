@@ -203,18 +203,31 @@ function unlockPage(){
 }
 setInterval(()=>{ if(new Date()>=unlockDate) unlockPage(); },1000);
 
-/* NO button movement — full screen + click disabled */
-noBtn.onclick=e=>e.preventDefault();
+/* NO Button – Original Behaviour */
+const noBtn = document.getElementById("noBtn");
 
-function moveNo(){
-  const x=Math.random()*(window.innerWidth-100);
-  const y=Math.random()*(window.innerHeight-50);
-  noBtn.style.position="fixed";
-  noBtn.style.left=x+"px";
-  noBtn.style.top=y+"px";
+/* Click disable */
+noBtn.onclick = e => e.preventDefault();
+
+/* Random screen move */
+function moveNoButton(){
+  const padding = 20;
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  noBtn.style.position = "fixed";
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
 }
-noBtn.addEventListener("mouseover",moveNo);
-setInterval(moveNo,1200);
+
+/* Desktop – mouse paas jaate hi bhaagta hai */
+noBtn.addEventListener("mouseenter", moveNoButton);
+
+/* Mobile – apne aap move */
+setInterval(moveNoButton, 1000);
 
 /* Letter */
 const letter=`Ujala, I never believed in magic until you walked into my life and changed everything. In your smile I find peace, in your words I find comfort, and in your love I find my home. Even when miles separate us, my heart beats only for you. You inspire me to become better every day. I promise to protect your heart, respect your feelings, and love you endlessly. You are my forever, my always, my everything. ❤️`;
