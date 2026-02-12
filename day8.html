@@ -43,6 +43,19 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
 
 @keyframes zoom { from{transform:scale(1);} to{transform:scale(1.08);} }
 
+.heart, .flower {
+  position: fixed;
+  top:-20px;
+  font-size:24px;
+  animation:fall linear infinite;
+  opacity:0.8;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-20px); }
+  100% { transform: translateY(110vh); }
+}
+
 #yesBtn, #heartBtn {
   padding:12px 28px;
   font-size:18px;
@@ -51,10 +64,41 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
   background:#ff4d6d;
   color:white;
   cursor:pointer;
+  position:relative;
+  z-index:10;
   margin-top:15px;
 }
 
-#heartBtn{ display:none; background:#ff2f6d; }
+#heartBtn{
+  display:none;
+  background:#ff2f6d;
+}
+
+#noBtn {
+  position:fixed;
+  z-index:9999;
+  padding:12px 28px;
+  font-size:18px;
+  border:none;
+  border-radius:25px;
+  background:white;
+  color:black;
+  cursor:pointer;
+  user-select:none;
+  display:none;
+}
+
+#yesResponse{
+  margin-top:20px;
+  font-size:26px;
+  font-weight:bold;
+  animation:pop 0.6s ease;
+}
+
+@keyframes pop{
+  0%{transform:scale(0.5);opacity:0;}
+  100%{transform:scale(1);opacity:1;}
+}
 
 #loveBox{
   position:fixed;
@@ -71,23 +115,24 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
   padding:25px;
   border-radius:20px;
   max-width:700px;
-  animation:pop 0.6s ease;
 }
 
 #typeText{ font-size:20px; line-height:1.7; }
 
-#imgReveal{ display:none; margin-top:15px; gap:10px; justify-content:center; flex-wrap:wrap; }
+#imgReveal{ 
+  display:none; 
+  margin-top:15px; 
+  gap:10px; 
+  justify-content:center; 
+  flex-wrap:wrap; 
+}
+
 #imgReveal img{
   width:120px;
   height:160px;
   border-radius:12px;
   box-shadow:0 0 15px rgba(255,255,255,0.6);
   animation:zoom 3s infinite alternate;
-}
-
-@keyframes pop{
-  0%{transform:scale(0.5);opacity:0;}
-  100%{transform:scale(1);opacity:1;}
 }
 </style>
 </head>
@@ -104,6 +149,7 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
 <div id="mainContent">
   <div class="container">
     <h1>HAPPY VALENTINE DAY MY EVERYTHING ❤️</h1>
+
     <p>
       You are not just my love, you are my happiness, my peace, my smile, and my whole world.  
       Every heartbeat of mine whispers your name, and every moment I spend without you makes me miss you even more.  
@@ -131,6 +177,8 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
   </div>
 </div>
 
+<button id="noBtn">NO 😈</button>
+
 <div id="loveBox">
   <div id="loveContent">
     <div id="typeText"></div>
@@ -150,27 +198,63 @@ const now = new Date();
 document.getElementById("unlock-time").innerText =
   unlockDate.toLocaleString("en-IN",{day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit",hour12:true});
 
+const noBtn=document.getElementById("noBtn");
+const yesBtn=document.getElementById("yesBtn");
 const bgMusic=document.getElementById("bgMusic");
+
+const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
 function unlockPage(){
   document.getElementById("locked").style.display="none";
   document.getElementById("mainContent").style.display="block";
   document.getElementById("valentineSection").style.display="block";
+
   bgMusic.play().catch(()=>{});
+
+  const rect=yesBtn.getBoundingClientRect();
+  noBtn.style.left=rect.left+100+"px";
+  noBtn.style.top=rect.top+"px";
+  noBtn.style.display="block";
 }
 
-if(now>=unlockDate) unlockPage();
-else setInterval(()=>{ if(new Date()>=unlockDate) unlockPage(); },1000);
+function moveNo(){
+  const x=Math.random()*(window.innerWidth-noBtn.offsetWidth);
+  const y=Math.random()*(window.innerHeight-noBtn.offsetHeight);
+  noBtn.style.left=x+"px";
+  noBtn.style.top=y+"px";
+}
 
-// ===== Added Features Only =====
-const letter = `Ujala, I never believed in magic until you walked into my life and changed everything without even trying. In your smile, I find peace; in your words, I find comfort; and in your love, I find my home. Even when miles separate us, my heart knows only one direction — towards you. You inspire me to become better, to dream bigger, and to love deeper. Every memory with you is a treasure, and every moment without you is a reminder of how special you are to me. I promise to protect your heart, respect your feelings, and stand by you in every phase of life. You are my forever, my always, my everything. ❤️`;
+// Desktop → move only when mouse is near
+document.addEventListener("mousemove",e=>{
+  if(isMobile) return;
 
+  const bx=noBtn.offsetLeft+noBtn.offsetWidth/2;
+  const by=noBtn.offsetTop+noBtn.offsetHeight/2;
+
+  const dist=Math.hypot(e.clientX-bx,e.clientY-by);
+
+  if(dist<80){
+    moveNo();
+  }
+});
+
+// Mobile → continuous move
+if(isMobile){
+  setInterval(moveNo,350);
+}
+
+// NO click block
+noBtn.addEventListener("click",e=>e.preventDefault());
+
+// YES logic + new features
 const heartBtn=document.getElementById("heartBtn");
 const typeText=document.getElementById("typeText");
 const loveBox=document.getElementById("loveBox");
 const imgReveal=document.getElementById("imgReveal");
 
-document.getElementById("yesBtn").addEventListener("click",()=>{
+const letter = `Ujala, I never believed in magic until you walked into my life and changed everything without even trying. In your smile, I find peace; in your words, I find comfort; and in your love, I find my home. Even when miles separate us, my heart knows only one direction — towards you. You inspire me to become better, to dream bigger, and to love deeper. Every memory with you is a treasure, and every moment without you is a reminder of how special you are to me. I promise to protect your heart, respect your feelings, and stand by you in every phase of life. You are my forever, my always, my everything. ❤️`;
+
+yesBtn.addEventListener("click",()=>{
   yesResponse.innerText="Yayyy ❤️ I knew it! I love you 😘💖 Ab 2nd option pe click karo...";
   heartBtn.style.display="inline-block";
 });
@@ -179,6 +263,7 @@ heartBtn.addEventListener("click",()=>{
   loveBox.style.display="flex";
   let i=0;
   typeText.innerHTML="";
+  imgReveal.style.display="none";
   const typer=setInterval(()=>{
     typeText.innerHTML+=letter.charAt(i);
     i++;
@@ -188,6 +273,24 @@ heartBtn.addEventListener("click",()=>{
     }
   },40);
 });
+
+if(now>=unlockDate) unlockPage();
+else setInterval(()=>{ if(new Date()>=unlockDate) unlockPage(); },1000);
+
+// falling hearts + flowers
+function rain(sym,cls,c){
+  for(let i=0;i<c;i++){
+    const d=document.createElement("div");
+    d.className=cls;
+    d.innerHTML=sym;
+    d.style.left=Math.random()*100+"vw";
+    d.style.animationDuration=(3+Math.random()*5)+"s";
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(),8000);
+  }
+}
+setInterval(()=>rain("❤️","heart",10),500);
+setInterval(()=>rain("🌸","flower",6),700);
 </script>
 
 </body>
