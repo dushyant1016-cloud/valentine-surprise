@@ -144,6 +144,25 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
 </div>
 
 <script>
+const unlockDate = new Date(2026,1,14,0,0,0);
+const now = new Date();
+
+document.getElementById("unlock-time").innerText =
+  unlockDate.toLocaleString("en-IN",{day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit",hour12:true});
+
+const bgMusic=document.getElementById("bgMusic");
+
+function unlockPage(){
+  document.getElementById("locked").style.display="none";
+  document.getElementById("mainContent").style.display="block";
+  document.getElementById("valentineSection").style.display="block";
+  bgMusic.play().catch(()=>{});
+}
+
+if(now>=unlockDate) unlockPage();
+else setInterval(()=>{ if(new Date()>=unlockDate) unlockPage(); },1000);
+
+// ===== Added Features Only =====
 const letter = `Ujala, I never believed in magic until you walked into my life and changed everything without even trying. In your smile, I find peace; in your words, I find comfort; and in your love, I find my home. Even when miles separate us, my heart knows only one direction — towards you. You inspire me to become better, to dream bigger, and to love deeper. Every memory with you is a treasure, and every moment without you is a reminder of how special you are to me. I promise to protect your heart, respect your feelings, and stand by you in every phase of life. You are my forever, my always, my everything. ❤️`;
 
 const heartBtn=document.getElementById("heartBtn");
