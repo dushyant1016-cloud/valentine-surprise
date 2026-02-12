@@ -72,7 +72,7 @@ body{
 }
 
 #yesBtn,#heartBtn{background:#ff4d6d;color:white;}
-#noBtn{background:white;color:black;}
+#noBtn{background:white;color:black; position:relative;}
 #heartBtn{display:none;}
 
 #loveBox{
@@ -200,14 +200,47 @@ function unlockPage(){
   mainContent.style.display="block";
   valentineSection.style.display="block";
   bgMusic.play().catch(()=>{});
+
+  setNoNearYes(); // Set NO button near YES initially
 }
 setInterval(()=>{ if(new Date()>=unlockDate) unlockPage(); },1000);
 
-/* NO button movement */
-noBtn.addEventListener("mouseover",()=>{
-  const x=Math.random()*300-150;
-  const y=Math.random()*200-100;
-  noBtn.style.transform=`translate(${x}px,${y}px)`;
+/* ===== NO BUTTON LOGIC (FINAL) ===== */
+noBtn.onclick = (e)=> e.preventDefault(); // disable click
+
+let movedOnce = false;
+
+// Initially place near YES
+function setNoNearYes(){
+  if(movedOnce) return;
+
+  const yesRect = yesBtn.getBoundingClientRect();
+  noBtn.style.position = "absolute";
+  noBtn.style.left = (yesRect.right + 10) + "px";
+  noBtn.style.top  = yesRect.top + "px";
+}
+
+// Move randomly anywhere in screen when mouse near
+function moveNoRandom(){
+  const rect = noBtn.getBoundingClientRect();
+  let x = Math.random() * (window.innerWidth - rect.width);
+  let y = Math.random() * (window.innerHeight - rect.height);
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top  = y + "px";
+
+  movedOnce = true;
+}
+
+document.addEventListener("mousemove", (e)=>{
+  const rect = noBtn.getBoundingClientRect();
+  const dx = e.clientX - (rect.left + rect.width/2);
+  const dy = e.clientY - (rect.top + rect.height/2);
+  const dist = Math.sqrt(dx*dx + dy*dy);
+
+  if(dist < 120){
+    moveNoRandom();
+  }
 });
 
 /* Letter */
