@@ -1,10 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Happy Valentine Day ❤️</title>
+
 <style>
+*{box-sizing:border-box;}
+
 body {
   margin:0;
   height:100vh;
@@ -13,108 +15,167 @@ body {
   overflow:hidden;
   color:white;
   text-align:center;
-  display:flex;
-  justify-content:center;
-  align-items:center;
 }
 
 #locked {
   text-align:center;
-  padding-top:80px;
+  padding-top:100px;
   background:#ff9ac2;
   height:100vh;
   width:100%;
   position:fixed;
   top:0;
   left:0;
-  color:white;
-  font-family:Arial;
   z-index:9999;
 }
 
-#unlock-time { margin-top:10px; }
-#mainContent { display:none; }
+#mainContent{display:none;}
 
-.container { z-index:2; max-width:900px; padding:20px; }
-h1 { font-size:60px; margin-bottom:20px; text-transform:uppercase; letter-spacing:3px; }
-p { font-size:22px; line-height:1.7; margin-bottom:30px; }
-
-.slideshow { display:flex; justify-content:center; gap:15px; flex-wrap:wrap; }
-.slideshow img { width:160px; height:200px; object-fit:cover; border-radius:15px; box-shadow:0 0 15px rgba(255,255,255,0.5); animation:zoom 4s infinite alternate; }
-
-@keyframes zoom { from{transform:scale(1);} to{transform:scale(1.08);} }
-
-.heart, .flower {
-  position: fixed;
-  top:-20px;
-  font-size:24px;
-  animation:fall linear infinite;
-  opacity:0.8;
+.container {
+  max-width:900px;
+  margin:auto;
+  padding:40px 20px;
+  animation:fadeIn 1.5s ease;
 }
 
-@keyframes fall {
-  0% { transform: translateY(-20px); }
-  100% { transform: translateY(110vh); }
+@keyframes fadeIn{
+  from{opacity:0; transform:scale(0.95);}
+  to{opacity:1; transform:scale(1);}
 }
 
-#yesBtn {
-  padding:12px 28px;
-  font-size:18px;
+h1{font-size:60px;}
+
+.typewriter{
+  font-size:22px;
+  line-height:1.7;
+  min-height:150px;
+}
+
+.slideshow{
+  display:flex;
+  gap:15px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.slideshow img{
+  width:160px;
+  height:200px;
+  object-fit:cover;
+  border-radius:15px;
+  animation:zoom 4s infinite alternate;
+}
+
+@keyframes zoom{
+  from{transform:scale(1);}
+  to{transform:scale(1.08);}
+}
+
+.timeline{
+  margin-top:50px;
+  background:rgba(255,255,255,0.15);
+  padding:25px;
+  border-radius:20px;
+}
+
+.timeline h2{margin-bottom:15px;}
+
+.timeline div{
+  font-size:20px;
+  margin:10px 0;
+}
+
+#loveBtn{
+  margin-top:25px;
+  padding:12px 30px;
   border:none;
-  border-radius:25px;
-  background:#ff4d6d;
-  color:white;
+  border-radius:30px;
+  background:#fff;
+  color:#ff416c;
+  font-size:18px;
   cursor:pointer;
-  position:relative;
-  z-index:10;
 }
 
-#noBtn {
+#popup{
   position:fixed;
-  z-index:9999;
-  padding:12px 28px;
-  font-size:18px;
-  border:none;
-  border-radius:25px;
-  background:white;
-  color:black;
-  cursor:pointer;
-  user-select:none;
+  inset:0;
+  background:rgba(0,0,0,0.7);
   display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:99999;
 }
 
-#warningText {
-  margin-top:15px; 
-  font-size:18px; 
-  font-weight:bold;
-}
-
-.particle {
-  position:absolute;
-  font-size:18px;
-  pointer-events:none;
-  user-select:none;
-  z-index:10000;
-  opacity:1;
-  transition: all 1s ease-out;
-}
-
-#yesResponse{
-  margin-top:20px;
-  font-size:26px;
-  font-weight:bold;
+.popup-box{
+  background:#fff;
+  color:#ff416c;
+  padding:30px;
+  border-radius:25px;
+  max-width:500px;
   animation:pop 0.6s ease;
 }
 
 @keyframes pop{
-  0%{transform:scale(0.5);opacity:0;}
-  100%{transform:scale(1);opacity:1;}
+  from{transform:scale(0.5);opacity:0;}
+  to{transform:scale(1);opacity:1;}
 }
+
+#yesBtn,#noBtn{
+  padding:12px 30px;
+  font-size:18px;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+}
+
+#yesBtn{
+  background:#ff4d6d;
+  color:white;
+}
+
+#noBtn{
+  position:fixed;
+  background:white;
+  color:black;
+  display:none;
+  z-index:9999;
+}
+
+.particle{
+  position:absolute;
+  font-size:20px;
+  pointer-events:none;
+}
+
+.heart{
+  position:fixed;
+  top:-20px;
+  font-size:24px;
+  animation:fall linear infinite;
+}
+
+@keyframes fall{
+  0%{transform:translateY(-20px);}
+  100%{transform:translateY(110vh);}
+}
+
+.firework{
+  position:fixed;
+  font-size:35px;
+  animation:fire 1s ease-out forwards;
+}
+
+@keyframes fire{
+  from{transform:scale(0);opacity:1;}
+  to{transform:scale(2);opacity:0;}
+}
+
 </style>
 </head>
+
 <body>
 
-<audio id="bgMusic" src="song.mp3" preload="auto" loop></audio>
+<audio id="bgMusic" src="song.mp3" loop></audio>
 
 <div id="locked">
   <h1>🔒 Page Locked</h1>
@@ -124,14 +185,10 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
 
 <div id="mainContent">
   <div class="container">
-    <h1>HAPPY VALENTINE DAY MY EVERYTHING ❤️</h1>
-    <p>
-      You are not just my love, you are my happiness, my peace, my smile, and my whole world.  
-      Every heartbeat of mine whispers your name, and every moment I spend without you makes me miss you even more.  
-      Thank you for coming into my life and making it so beautiful.  
-      No matter how far we are, my heart will always belong to you.  
-      Today and forever, I choose you — only you. ❤️
-    </p>
+
+    <h1>Happy Valentine Day My Everything ❤️</h1>
+
+    <div class="typewriter" id="typeText"></div>
 
     <div class="slideshow">
       <img src="ujala2.png">
@@ -141,122 +198,123 @@ p { font-size:22px; line-height:1.7; margin-bottom:30px; }
       <img src="ujala4.png">
     </div>
 
-    <div id="valentineSection" style="display:none; margin-top:40px;">
-      <h2 style="font-size:32px;">Will you be my Valentine forever? 💖</h2>
-      <div style="position:relative; height:180px; margin-top:20px;">
-        <button id="yesBtn">YES ❤️</button>
-        <div id="yesResponse"></div>
-      </div>
-      <p id="warningText"></p>
+    <div class="timeline">
+      <h2>💖 Our Journey 💖</h2>
+      <div>💬 First Chat</div>
+      <div>📞 First Call</div>
+      <div>🫶 First Meet</div>
+      <div>♾️ Forever Together</div>
     </div>
+
+    <button id="loveBtn">Open My Heart 💌</button>
+
+    <div style="margin-top:40px;">
+      <h2>Will you be my Valentine forever? 💖</h2>
+      <button id="yesBtn">YES ❤️</button>
+    </div>
+
   </div>
 </div>
 
 <button id="noBtn">NO 😈</button>
 
+<div id="popup">
+  <div class="popup-box">
+    <h2>💌 My Love Letter 💌</h2>
+    <p>
+      You are my miracle, my smile, my peace and my forever.  
+      No matter where life takes us, my heart will always beat only for you.  
+      I love you endlessly ❤️
+    </p>
+    <button onclick="closePopup()">Close 💖</button>
+  </div>
+</div>
+
 <script>
-const unlockDate = new Date(2026,1,14,0,0,0);
-const now = new Date();
 
-document.getElementById("unlock-time").innerText =
-  unlockDate.toLocaleString("en-IN",{day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit",hour12:true});
+const text="You are not just my love, you are my happiness, my peace, my smile, and my whole world. Every heartbeat of mine whispers your name. No matter how far we are, my heart will always belong to you. Today and forever, I choose you ❤️";
 
-const noBtn=document.getElementById("noBtn");
-const yesBtn=document.getElementById("yesBtn");
-const bgMusic=document.getElementById("bgMusic");
+let i=0;
+function typeWriter(){
+  if(i<text.length){
+    document.getElementById("typeText").innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(typeWriter,40);
+  }
+}
 
-const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+const unlockDate=new Date(2026,1,14,0,0,0);
+document.getElementById("unlock-time").innerText=unlockDate.toLocaleString("en-IN");
 
-function unlockPage(){
+function unlock(){
   document.getElementById("locked").style.display="none";
   document.getElementById("mainContent").style.display="block";
-  document.getElementById("valentineSection").style.display="block";
-
-  bgMusic.play().catch(()=>{});
-
-  const rect=yesBtn.getBoundingClientRect();
-  noBtn.style.left=rect.left+100+"px";
-  noBtn.style.top=rect.top+"px";
-  noBtn.style.display="block";
+  document.getElementById("bgMusic").play();
+  typeWriter();
+  fireworks();
 }
 
-function moveNo(){
-  const x=Math.random()*(window.innerWidth-noBtn.offsetWidth);
-  const y=Math.random()*(window.innerHeight-noBtn.offsetHeight);
-  noBtn.style.left=x+"px";
-  noBtn.style.top=y+"px";
-}
+if(new Date()>=unlockDate) unlock();
+else setInterval(()=>{if(new Date()>=unlockDate) unlock();},1000);
 
-// Desktop → move only when mouse is near
-document.addEventListener("mousemove",e=>{
-  if(isMobile) return;
-
-  const bx=noBtn.offsetLeft+noBtn.offsetWidth/2;
-  const by=noBtn.offsetTop+noBtn.offsetHeight/2;
-
-  const dist=Math.hypot(e.clientX-bx,e.clientY-by);
-
-  if(dist<80){
-    moveNo();
+function rain(){
+  for(let i=0;i<10;i++){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(3+Math.random()*5)+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),8000);
   }
+}
+setInterval(rain,500);
+
+const noBtn=document.getElementById("noBtn");
+document.getElementById("yesBtn").addEventListener("click",()=>{
+  blast();
+  noBtn.style.display="block";
 });
 
-// Mobile → continuous move
-if(isMobile){
-  setInterval(moveNo,350);
-}
-
-// NO click block
-noBtn.addEventListener("click",e=>e.preventDefault());
-
-// YES blast same
-yesBtn.addEventListener("click",()=>{
-
-  yesResponse.innerText="Yayyy ❤️ I knew it! I love you😘💖 ab krr 2nd option pee click ";
-
-  const rect=yesBtn.getBoundingClientRect();
-  for(let i=0;i<50;i++){
-    const p=document.createElement("div");
+function blast(){
+  for(let i=0;i<40;i++){
+    let p=document.createElement("div");
     p.className="particle";
-    p.innerHTML=Math.random()>0.5?"❤️":"🌸";
+    p.innerHTML=Math.random()>0.5?"❤️":"💖";
+    p.style.left="50%";
+    p.style.top="50%";
     document.body.appendChild(p);
-
-    const sx=rect.left+rect.width/2;
-    const sy=rect.top+rect.height/2;
-    p.style.left=sx+"px";
-    p.style.top=sy+"px";
-
     const angle=Math.random()*2*Math.PI;
-    const r=50+Math.random()*120;
-    const dx=sx+r*Math.cos(angle);
-    const dy=sy+r*Math.sin(angle);
-
+    const r=100+Math.random()*200;
     setTimeout(()=>{
-      p.style.left=dx+"px";
-      p.style.top=dy+"px";
+      p.style.left=50+r*Math.cos(angle)+"%";
+      p.style.top=50+r*Math.sin(angle)+"%";
       p.style.opacity=0;
     },10);
-
     setTimeout(()=>p.remove(),1200);
   }
-});
+}
 
-if(now>=unlockDate) unlockPage();
-else setInterval(()=>{ if(new Date()>=unlockDate) unlockPage(); },1000);
-
-function rain(sym,cls,c){
-  for(let i=0;i<c;i++){
-    const d=document.createElement("div");
-    d.className=cls;
-    d.innerHTML=sym;
-    d.style.left=Math.random()*100+"vw";
-    d.style.animationDuration=(3+Math.random()*5)+"s";
-    document.body.appendChild(d);
-    setTimeout(()=>d.remove(),8000);
+function fireworks(){
+  for(let i=0;i<15;i++){
+    let f=document.createElement("div");
+    f.className="firework";
+    f.innerHTML="🎆";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*100+"vh";
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1000);
   }
 }
-setInterval(()=>rain("❤️","heart",10),500);
-setInterval(()=>rain("🌸","flower",6),700);
+
+document.getElementById("loveBtn").onclick=()=>{
+  document.getElementById("popup").style.display="flex";
+}
+
+function closePopup(){
+  document.getElementById("popup").style.display="none";
+}
+
 </script>
 
 </body>
