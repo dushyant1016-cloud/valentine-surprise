@@ -22,7 +22,7 @@ body{
 .rain span{
   position:fixed;
   top:-10%;
-  font-size:24px;
+  font-size:22px;
   animation:fall linear infinite;
   z-index:1;
 }
@@ -52,8 +52,8 @@ body{
 }
 
 .slideshow img{
-  width:160px;
-  height:200px;
+  max-width:90%;
+  height:auto;
   border-radius:15px;
   animation:zoom 4s infinite alternate;
 }
@@ -93,52 +93,13 @@ body{
 }
 
 #typeText{font-size:20px;line-height:1.7;}
-
-#imgReveal{
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-
-.revealBox{
-  width:120px;
-  height:160px;
-  background:white;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  color:red;
-  animation:flash .5s;
-}
-
-@keyframes flash{
-  0%{opacity:0;}
-  50%{opacity:1;}
-  100%{opacity:0;}
-}
-
-.revealBox img{
-  width:120px;
-  height:160px;
-  border-radius:12px;
-  animation:pop .6s;
-}
-
-@keyframes pop{
-  0%{transform:scale(.3);opacity:0;}
-  100%{transform:scale(1);opacity:1;}
-}
+#imgReveal{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:15px;}
 </style>
 </head>
 
 <body>
 
 <div class="rain" id="rain"></div>
-
 <audio id="bgMusic" src="song.mp3" loop preload="auto"></audio>
 
 <div id="locked">
@@ -199,35 +160,22 @@ function unlockPage(){
   locked.style.display="none";
   mainContent.style.display="block";
   valentineSection.style.display="block";
-  bgMusic.play().catch(()=>{});
 }
 setInterval(()=>{ if(new Date()>=unlockDate) unlockPage(); },1000);
 
-/* NO Button – Original Behaviour */
-const noBtn = document.getElementById("noBtn");
+document.body.addEventListener("click",()=>bgMusic.play(),{once:true});
 
-/* Click disable */
-noBtn.onclick = e => e.preventDefault();
+/* NO Button Behaviour */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseenter",()=>{
+  const padding=20;
+  const maxX=window.innerWidth-noBtn.offsetWidth-padding;
+  const maxY=window.innerHeight-noBtn.offsetHeight-padding;
 
-/* Random screen move */
-function moveNoButton(){
-  const padding = 20;
-  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
-
-  noBtn.style.position = "fixed";
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-}
-
-/* Desktop – mouse paas jaate hi bhaagta hai */
-noBtn.addEventListener("mouseenter", moveNoButton);
-
-/* Mobile – apne aap move */
-setInterval(moveNoButton, 1000);
+  noBtn.style.position="fixed";
+  noBtn.style.left=Math.random()*maxX+"px";
+  noBtn.style.top=Math.random()*maxY+"px";
+});
 
 /* Letter */
 const letter=`Ujala, I never believed in magic until you walked into my life and changed everything. In your smile I find peace, in your words I find comfort, and in your love I find my home. Even when miles separate us, my heart beats only for you. You inspire me to become better every day. I promise to protect your heart, respect your feelings, and love you endlessly. You are my forever, my always, my everything. ❤️`;
@@ -259,7 +207,6 @@ function revealImages(){
     if(i>=pics.length) return;
 
     const box=document.createElement("div");
-    box.className="revealBox";
     box.innerHTML="🤍❤️✨";
     imgReveal.appendChild(box);
 
@@ -272,7 +219,7 @@ function revealImages(){
   showOne();
 }
 
-/* Heavy Heart + Flower Rain */
+/* Medium Rain */
 const rain=document.getElementById("rain");
 const items=["❤️","🌸","💖","🌹","💕","💞","✨"];
 
@@ -281,13 +228,13 @@ function createRain(){
     const span=document.createElement("span");
     span.innerText=items[Math.floor(Math.random()*items.length)];
     span.style.left=Math.random()*100+"vw";
-    span.style.animationDuration=(Math.random()*2+2)+"s";
-    span.style.fontSize=(Math.random()*22+18)+"px";
+    span.style.animationDuration=(Math.random()*2.5+2.5)+"s";
+    span.style.fontSize=(Math.random()*18+18)+"px";
     rain.appendChild(span);
-    setTimeout(()=>span.remove(),5000);
+    setTimeout(()=>span.remove(),6000);
   }
 }
-setInterval(createRain,120);
+setInterval(createRain,150);
 </script>
 
 </body>
